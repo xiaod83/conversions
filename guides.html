@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Intersections - Guides</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">AI Intersections</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="updates.html">Updates</a></li>
+                <li><a href="guides.html" class="active">Guides</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main class="main-content">
+            <h1>Tech Guides</h1>
+            
+            <p>Comprehensive guides to help you understand and implement AI technologies in your field. Whether you're a beginner or experienced professional, find practical insights to navigate the intersection of AI with your industry.</p>
+
+            <h2>Getting Started with AI</h2>
+
+            <p>Learn the fundamentals of artificial intelligence, machine learning, and data science without getting lost in complex mathematics. Our beginner-friendly guides explain core concepts and provide practical examples you can apply immediately.</p>
+
+            <p>Understand different types of AI models, when to use them, and how to evaluate their effectiveness for your specific use case. We cover supervised learning, unsupervised learning, and reinforcement learning with real-world applications.</p>
+
+            <h2>Implementation Strategies</h2>
+
+            <p>Discover best practices for integrating AI into existing workflows and systems. Learn about data preparation, model selection, deployment strategies, and performance monitoring to ensure successful AI implementation in your organization.</p>
+
+            <p>Our step-by-step guides cover everything from proof-of-concept development to production deployment, including common pitfalls to avoid and metrics to track for measuring success and ROI of AI initiatives.</p>
+
+            <h2>Industry-Specific Applications</h2>
+
+            <p>Explore detailed tutorials and case studies showing how AI is being applied across different sectors. Each guide provides context-specific insights, technical requirements, and practical considerations for your industry.</p>
+
+            <p>From implementing computer vision in manufacturing quality control to deploying natural language processing in customer service, learn how to adapt AI solutions to meet the unique challenges of your professional domain.</p>
+        </main>
+    </div>
+
+    <script>
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>

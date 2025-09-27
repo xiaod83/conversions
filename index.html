@@ -3,128 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversions</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #fff;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 200px;
-            gap: 60px;
-            align-items: start;
-        }
-
-        .main-content {
-            max-width: 800px;
-        }
-
-        .sidebar {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            position: sticky;
-            top: 20px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 400;
-            margin-bottom: 30px;
-            color: #2c3e50;
-        }
-
-        h2 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin: 30px 0 15px 0;
-            color: #2c3e50;
-        }
-
-        .sidebar h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-
-        p {
-            margin-bottom: 20px;
-            font-size: 1rem;
-            color: #444;
-        }
-
-        .sidebar ul {
-            list-style: none;
-        }
-
-        .sidebar li {
-            margin-bottom: 8px;
-        }
-
-        .sidebar a {
-            color: #0066cc;
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
-
-        .sidebar a:hover {
-            text-decoration: underline;
-        }
-
-        .highlight {
-            background-color: #e8f4fd;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .sidebar {
-                order: -1;
-                position: static;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    <title>AI Intersections - Home</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">AI Intersections</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="updates.html">Updates</a></li>
+                <li><a href="guides.html">Guides</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
         <main class="main-content">
-            <h1>Conversions</h1>
+            <h1>AI Intersections</h1>
             
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Exploring the fascinating convergence of artificial intelligence with diverse fields - from healthcare and finance to creative arts and scientific research. Discover how AI is reshaping industries and creating new possibilities across all domains of human knowledge.</p>
 
             <h2>What makes this different?</h2>
 
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+            <p>We focus on the intersection points where AI meets other disciplines, examining not just the technology itself, but how it transforms traditional practices and opens up entirely new frontiers. Our coverage spans both breaking developments and practical applications you can implement today.</p>
 
-            <p>Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+            <p>From AI-powered scientific discoveries to creative collaborations between humans and machines, we explore the full spectrum of artificial intelligence's impact across industries, providing both technical insights and accessible explanations for professionals in any field.</p>
 
             <h2>Key Features</h2>
 
-            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.</p>
+            <p>Stay informed with our curated tech news focusing on AI breakthroughs across different sectors. Learn through comprehensive guides that bridge the gap between complex AI concepts and practical implementation in your field of expertise.</p>
 
-            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
+            <p>Whether you're a researcher, entrepreneur, creative professional, or simply curious about AI's role in shaping our future, you'll find content tailored to help you understand and leverage these powerful intersections.</p>
+        </main>
+    </div>
+
+    <script>
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>
