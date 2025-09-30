@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Intersections - Tech News</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">AI Intersections</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="updates.html">Updates</a></li>
+                <li><a href="guides.html">Guides</a></li>
+                <li><a href="tech-news.html" class="active">Tech News</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main class="main-content">
+            <h1>AI Tech News</h1>
+            
+            <p>Latest developments, breakthroughs, and industry insights from the rapidly evolving world of artificial intelligence. Stay informed about the technologies shaping our future.</p>
+
+            <div class="articles-grid" id="articles-grid">
+                <article class="article-card" onclick="window.location.href='articles/article-1.html'">
+                    <div class="article-meta">
+                        <span class="article-date">September 28, 2025</span>
+                        <span class="article-category">Research</span>
+                    </div>
+                    <h3 class="article-title">Breakthrough in Multimodal AI: New Models Achieve Human-Level Performance in Complex Reasoning Tasks</h3>
+                    <p class="article-excerpt">Researchers at Stanford and MIT have developed a new class of multimodal AI systems that can process text, images, and audio simultaneously while maintaining context across all modalities...</p>
+                    <div class="read-more">Read full article →</div>
+                </article>
+
+                <article class="article-card" onclick="window.location.href='articles/article-2.html'">
+                    <div class="article-meta">
+                        <span class="article-date">September 27, 2025</span>
+                        <span class="article-category">Industry</span>
+                    </div>
+                    <h3 class="article-title">Major Healthcare Provider Deploys AI Diagnostic System Across 500+ Hospitals</h3>
+                    <p class="article-excerpt">Kaiser Permanente announces the largest deployment of AI-powered diagnostic imaging tools, expected to reduce diagnosis time by 60% while improving accuracy rates...</p>
+                    <div class="read-more">Read full article →</div>
+                </article>
+
+                <article class="article-card" onclick="window.location.href='articles/article-3.html'">
+                    <div class="article-meta">
+                        <span class="article-date">September 26, 2025</span>
+                        <span class="article-category">Technology</span>
+                    </div>
+                    <h3 class="article-title">OpenAI Releases GPT-5 with Revolutionary Planning Capabilities</h3>
+                    <p class="article-excerpt">The latest iteration of GPT demonstrates unprecedented ability to plan and execute complex multi-step tasks, marking a significant advance toward artificial general intelligence...</p>
+                    <div class="read-more">Read full article →</div>
+                </article>
+
+                <article class="article-card" onclick="window.location.href='articles/article-4.html'">
+                    <div class="article-meta">
+                        <span class="article-date">September 25, 2025</span>
+                        <span class="article-category">Policy</span>
+                    </div>
+                    <h3 class="article-title">EU Finalizes Comprehensive AI Regulation Framework</h3>
+                    <p class="article-excerpt">The European Union has approved new legislation governing AI development and deployment, establishing global standards for AI safety and ethics in commercial applications...</p>
+                    <div class="read-more">Read full article →</div>
+                </article>
+
+                <article class="article-card" onclick="window.location.href='articles/article-5.html'">
+                    <div class="article-meta">
+                        <span class="article-date">September 24, 2025</span>
+                        <span class="article-category">Business</span>
+                    </div>
+                    <h3 class="article-title">AI Startup Funding Reaches Record High Despite Economic Uncertainty</h3>
+                    <p class="article-excerpt">Q3 2025 sees $15.2 billion invested in AI startups globally, with particular focus on enterprise automation and scientific discovery applications...</p>
+                    <div class="read-more">Read full article →</div>
+                </article>
+
+                <article class="article-card" onclick="window.location.href='articles/article-6.html'">
+                    <div class="article-meta">
+                        <span class="article-date">September 23, 2025</span>
+                        <span class="article-category">Research</span>
+                    </div>
+                    <h3 class="article-title">Quantum-AI Hybrid Systems Show Promise for Drug Discovery</h3>
+                    <p class="article-excerpt">New research demonstrates how quantum computing combined with machine learning can accelerate molecular simulation, potentially reducing drug development timelines from years to months...</p>
+                    <div class="read-more">Read full article →</div>
+                </article>
+            </div>
+
+            <!-- Admin link -->
+            <div class="admin-link-container">
+                <a href="admin-panel.html" class="admin-link" title="Admin Panel">⚙️ Admin</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Temporary card feature removed: user-uploaded articles will appear only after
+        // their static HTML files are added to the articles/ folder and deployed.
+        document.addEventListener('DOMContentLoaded', function() {
+            loadIndexedArticles();
+        });
+
+        async function loadIndexedArticles() {
+            try {
+                const res = await fetch('articles/index.json?v=' + Date.now(), { cache: 'no-store' });
+                if (!res.ok) return;
+                const items = await res.json();
+                if (!Array.isArray(items)) return;
+                // Sort newest first, then insert from oldest to newest so newest ends up on top
+                items.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                const grid = document.getElementById('articles-grid');
+                for (let i = items.length - 1; i >= 0; i--) {
+                    const item = items[i];
+                    const card = buildIndexArticleCard(item);
+                    if (card) grid.insertBefore(card, grid.firstChild);
+                }
+            } catch (err) {
+                // When opened directly from the filesystem, browsers block fetch().
+                if (location.protocol === 'file:') {
+                    showManifestNote('Tip: To load new articles from index.json, view this site via a local server or after deploying. Loading JSON is blocked when opened directly from your file system.');
+                }
+            }
+        }
+
+        function esc(s) {
+            const d = document.createElement('div');
+            d.textContent = String(s ?? '');
+            return d.innerHTML;
+        }
+
+        function parseYmd(ymd) {
+            if (!ymd) return new Date(NaN);
+            const parts = String(ymd).split('-');
+            if (parts.length < 3) return new Date(ymd);
+            const y = parseInt(parts[0], 10);
+            const m = parseInt(parts[1], 10) - 1;
+            const d = parseInt(parts[2], 10);
+            return new Date(y, m, d);
+        }
+
+        function formatDateLocal(dateString) {
+            const date = parseYmd(dateString);
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function buildIndexArticleCard(item) {
+            if (!item || !item.fileName) return null;
+            const card = document.createElement('article');
+            card.className = 'article-card';
+            card.onclick = function() { window.location.href = item.fileName; };
+            card.innerHTML =
+                '<div class="article-meta">' +
+                    '<span class="article-date">' + formatDateLocal(item.date) + '</span>' +
+                    '<span class="article-category">' + esc(item.category) + '</span>' +
+                '</div>' +
+                '<h3 class="article-title">' + esc(item.title) + '</h3>' +
+                '<p class="article-excerpt">' + esc(item.excerpt) + '</p>' +
+                '<div class="read-more">Read full article →</div>';
+            return card;
+        }
+
+        function showManifestNote(message) {
+            const grid = document.getElementById('articles-grid');
+            const note = document.createElement('div');
+            note.className = 'csv-format';
+            note.style.marginTop = '12px';
+            note.innerHTML = '<p>' + esc(message) + '</p>';
+            grid.parentNode.insertBefore(note, grid.nextSibling);
+        }
+    </script>
+</body>
+</html>

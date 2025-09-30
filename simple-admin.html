@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Admin - AI Intersections</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">AI Intersections</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="updates.html">Updates</a></li>
+                <li><a href="guides.html">Guides</a></li>
+                <li><a href="tech-news.html">Tech News</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main class="main-content">
+            <div class="back-nav">
+                <a href="tech-news.html" class="back-link">← Back to Tech News</a>
+            </div>
+
+            <!-- Password Protection Screen -->
+            <div id="password-screen" class="password-screen">
+                <h1>Admin Access Required</h1>
+                <p>Please enter the admin password to access the article creation system.</p>
+                
+                <div class="password-form">
+                    <input type="password" id="admin-password" placeholder="Enter password" class="password-input">
+                    <button onclick="checkPassword()" class="password-button">Access Admin</button>
+                    <div id="password-error" class="password-error"></div>
+                </div>
+            </div>
+
+            <!-- Simple Article Creation Section -->
+            <div id="admin-section" class="upload-section" style="display: none;">
+                <h1>Create New Article</h1>
+                <p>Fill out the form below to create a new article. The system will generate all necessary files and update the article list automatically.</p>
+                
+                <form id="article-form" class="article-form">
+                    <div class="form-group">
+                        <label for="article-title">Article Title *</label>
+                        <input type="text" id="article-title" name="title" required placeholder="Enter article title">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="article-date">Publication Date *</label>
+                            <input type="date" id="article-date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="article-category">Category *</label>
+                            <select id="article-category" name="category" required>
+                                <option value="">Select category</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Research">Research</option>
+                                <option value="Industry">Industry</option>
+                                <option value="Policy">Policy</option>
+                                <option value="Business">Business</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="article-excerpt">Article Excerpt *</label>
+                        <textarea id="article-excerpt" name="excerpt" required placeholder="Brief description of the article (2-3 sentences)" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="article-content">Article Content *</label>
+                        <textarea id="article-content" name="content" required placeholder="Full article content (HTML formatting allowed)" rows="15"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" onclick="previewArticle()" class="preview-button">Preview Article</button>
+                        <button type="submit" class="publish-button">Create Article</button>
+                    </div>
+                </form>
+
+                <div id="creation-status" class="upload-status"></div>
+
+                <!-- Content Helper -->
+                <div class="content-helper">
+                    <h3>Content Formatting Tips</h3>
+                    <p>You can use HTML tags in the content field:</p>
+                    <ul>
+                        <li><code>&lt;p&gt;...&lt;/p&gt;</code> - Paragraphs</li>
+                        <li><code>&lt;h3&gt;...&lt;/h3&gt;</code> - Section headers</li>
+                        <li><code>&lt;strong&gt;...&lt;/strong&gt;</code> - Bold text</li>
+                        <li><code>&lt;em&gt;...&lt;/em&gt;</code> - Italic text</li>
+                    </ul>
+                    <p>Or just write plain text - the system will automatically format it into paragraphs.</p>
+                </div>
+            </div>
+
+            <!-- Preview Modal -->
+            <div id="preview-modal" class="preview-modal" style="display: none;">
+                <div class="preview-content">
+                    <div class="preview-header">
+                        <h2>Article Preview</h2>
+                        <button onclick="closePreview()" class="close-preview">×</button>
+                    </div>
+                    <div id="preview-body" class="preview-body"></div>
+                    <div class="preview-actions">
+                        <button onclick="closePreview()" class="preview-button">Close Preview</button>
+                        <button onclick="submitFromPreview()" class="publish-button">Looks Good - Create Article</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Auto-set today's date
+        document.getElementById('article-date').valueAsDate = new Date();
+
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        function checkPassword() {
+            const password = document.getElementById('admin-password').value;
+            const errorDiv = document.getElementById('password-error');
+            
+            // In production, this should be server-side authentication
+            if (password === 'AI2025admin') {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('admin-section').style.display = 'block';
+                errorDiv.textContent = '';
+            } else {
+                errorDiv.textContent = 'Incorrect password. Please try again.';
+                document.getElementById('admin-password').value = '';
+            }
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('admin-password').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Form submission
+        document.getElementById('article-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            createArticle();
+        });
+
+        function previewArticle() {
+            const formData = getFormData();
+            if (!validateForm(formData)) return;
+
+            const formattedDate = formatDate(formData.date);
+            
+            const previewHTML = `
+                <div class="article-header">
+                    <div class="article-meta">
+                        <span class="article-date">${formattedDate}</span>
+                        <span class="article-category">${escapeHtml(formData.category)}</span>
+                    </div>
+                    <h1>${escapeHtml(formData.title)}</h1>
+                </div>
+                <div class="article-body">
+                    ${formatContent(formData.content)}
+                </div>
+            `;
+            
+            document.getElementById('preview-body').innerHTML = previewHTML;
+            document.getElementById('preview-modal').style.display = 'flex';
+        }
+
+        function closePreview() {
+            document.getElementById('preview-modal').style.display = 'none';
+        }
+
+        function submitFromPreview() {
+            closePreview();
+            createArticle();
+        }
+
+        function createArticle() {
+            const formData = getFormData();
+            if (!validateForm(formData)) return;
+
+            // Generate unique article ID
+            const timestamp = Date.now();
+            const articleId = 'article-' + timestamp;
+            
+            // Create the article files
+            const htmlContent = generateArticleHTML(formData, articleId);
+            
+            // Download the HTML file
+            downloadFile(htmlContent, `${articleId}.html`, 'text/html');
+            
+            // Update and download the index.json
+            updateAndDownloadIndex(formData, articleId, timestamp);
+            
+            // Show success message
+            showStatus('Article created successfully! Files downloaded. Upload the HTML file to your articles/ folder and the index.json to update your site.', 'success');
+            
+            // Reset form
+            document.getElementById('article-form').reset();
+            document.getElementById('article-date').valueAsDate = new Date();
+        }
+
+        function getFormData() {
+            return {
+                title: document.getElementById('article-title').value.trim(),
+                date: document.getElementById('article-date').value,
+                category: document.getElementById('article-category').value,
+                excerpt: document.getElementById('article-excerpt').value.trim(),
+                content: document.getElementById('article-content').value.trim()
+            };
+        }
+
+        function validateForm(data) {
+            if (!data.title || !data.date || !data.category || !data.excerpt || !data.content) {
+                showStatus('Please fill in all required fields.', 'error');
+                return false;
+            }
+            return true;
+        }
+
+        function formatContent(content) {
+            // If content doesn't contain HTML tags, auto-format as paragraphs
+            if (!/<[^>]+>/.test(content)) {
+                return content.split('\n\n').map(p => p.trim()).filter(p => p).map(p => `<p>${escapeHtml(p)}</p>`).join('\n');
+            }
+            return content;
+        }
+
+        function generateArticleHTML(data, articleId) {
+            const formattedDate = formatDate(data.date);
+            const formattedContent = formatContent(data.content);
+            
+            return '<!DOCTYPE html>\n' +
+'<html lang="en">\n' +
+'<head>\n' +
+'    <meta charset="UTF-8">\n' +
+'    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+'    <title>' + escapeHtml(data.title) + ' - AI Intersections</title>\n' +
+'    <link rel="stylesheet" href="../styles.css">\n' +
+'</head>\n' +
+'<body class="article-page">\n' +
+'    <nav>\n' +
+'        <div class="nav-container">\n' +
+'            <a href="../index.html" class="nav-logo">AI Intersections</a>\n' +
+'            <ul class="nav-menu">\n' +
+'                <li><a href="../index.html">Home</a></li>\n' +
+'                <li><a href="../updates.html">Updates</a></li>\n' +
+'                <li><a href="../guides.html">Guides</a></li>\n' +
+'                <li><a href="../tech-news.html">Tech News</a></li>\n' +
+'            </ul>\n' +
+'        </div>\n' +
+'    </nav>\n' +
+'\n' +
+'    <div class="container">\n' +
+'        <main class="main-content">\n' +
+'            <div class="back-nav">\n' +
+'                <a href="../tech-news.html" class="back-link">← Back to Tech News</a>\n' +
+'            </div>\n' +
+'\n' +
+'            <div class="article-header">\n' +
+'                <div class="article-meta">\n' +
+'                    <span class="article-date">' + formattedDate + '</span>\n' +
+'                    <span class="article-category">' + escapeHtml(data.category) + '</span>\n' +
+'                </div>\n' +
+'                <h1>' + escapeHtml(data.title) + '</h1>\n' +
+'            </div>\n' +
+'\n' +
+'            <div class="article-body">\n' +
+'                ' + formattedContent + '\n' +
+'            </div>\n' +
+'        </main>\n' +
+'    </div>\n' +
+'\n' +
+'    <script>\\n' +
+'        let lastScrollTop = 0;\\n' +
+'        const nav = document.querySelector("nav");\\n' +
+'        \\n' +
+'        window.addEventListener("scroll", function() {\\n' +
+'            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;\\n' +
+'            \\n' +
+'            if (scrollTop > lastScrollTop && scrollTop > 100) {\\n' +
+'                nav.classList.add("hidden");\\n' +
+'            } else {\\n' +
+'                nav.classList.remove("hidden");\\n' +
+'            }\\n' +
+'            \\n' +
+'            lastScrollTop = scrollTop;\\n' +
+'        });\\n' +
+'    </scr' + 'ipt>\\n' +
+'</body>\n' +
+'</html>';
+        }
+
+        function updateAndDownloadIndex(data, articleId, timestamp) {
+            // Create new article entry
+            const newArticle = {
+                id: articleId,
+                title: data.title,
+                date: data.date,
+                category: data.category,
+                excerpt: data.excerpt,
+                fileName: `articles/${articleId}.html`,
+                timestamp: timestamp
+            };
+
+            // For this simple version, we'll create a new index with just existing + new article
+            // In production, you'd load the existing index.json first
+            const currentArticles = [newArticle]; // Add to existing articles in production
+            
+            const indexContent = JSON.stringify(currentArticles, null, 2);
+            downloadFile(indexContent, 'index.json', 'application/json');
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString + 'T00:00:00');
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function downloadFile(content, filename, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('creation-status');
+            statusDiv.textContent = message;
+            statusDiv.className = 'upload-status ' + type;
+            setTimeout(() => {
+                statusDiv.textContent = '';
+                statusDiv.className = 'upload-status';
+            }, 8000);
+        }
+    </script>
+</body>
+</html>

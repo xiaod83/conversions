@@ -1,0 +1,24 @@
+{
+  "name": "ai-intersections",
+  "version": "1.0.0",
+  "description": "AI Intersections - Website about the intersection of AI and other fields",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": ["ai", "artificial intelligence", "website", "blog", "cms"],
+  "author": "AI Intersections",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "fs-extra": "^11.1.1",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

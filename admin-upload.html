@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Upload - AI Intersections</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">AI Intersections</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="updates.html">Updates</a></li>
+                <li><a href="guides.html">Guides</a></li>
+                <li><a href="tech-news.html">Tech News</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main class="main-content">
+            <div class="back-nav">
+                <a href="tech-news.html" class="back-link">← Back to Tech News</a>
+            </div>
+
+            <!-- Password Protection Screen -->
+            <div id="password-screen" class="password-screen">
+                <h1>Admin Access Required</h1>
+                <p>Please enter the admin password to access the article upload system.</p>
+                
+                <div class="password-form">
+                    <input type="password" id="admin-password" placeholder="Enter password" class="password-input">
+                    <button onclick="checkPassword()" class="password-button">Access Upload</button>
+                    <div id="password-error" class="password-error"></div>
+                </div>
+            </div>
+
+            <!-- Upload Section (hidden by default) -->
+            <div id="upload-section" class="upload-section" style="display: none;">
+                <h1>Add New Article</h1>
+                <p>Upload a CSV file with your article data to automatically add it to the tech news section.</p>
+                
+                <div class="upload-container">
+                    <input type="file" id="csv-upload" accept=".csv" style="display: none;">
+                    <button onclick="document.getElementById('csv-upload').click()" class="upload-button">
+                        📄 Upload CSV Article
+                    </button>
+                    <div id="upload-status" class="upload-status"></div>
+                </div>
+                
+                <div class="csv-format">
+                    <h3>CSV Format Required:</h3>
+                    <p><strong>Columns:</strong> title, date, category, excerpt, content</p>
+                    <p><strong>Example:</strong> "Article Title","2025-09-29","Technology","Brief excerpt...","Full article content..."</p>
+                    <div class="csv-note">
+                        <p><strong>Important Notes:</strong></p>
+                        <ul>
+                            <li>Use quotes around fields that contain commas</li>
+                            <li>Content field should contain HTML for formatting</li>
+                            <li>Date format: YYYY-MM-DD</li>
+                            <li>Categories: Technology, Research, Industry, Policy, Business</li>
+                        </ul>
+                    </div>
+                    <div class="file-creation-note">
+                        <p><strong>File Creation:</strong></p>
+                        <ul>
+                            <li>HTML files will be automatically generated and downloaded</li>
+                            <li>Move the downloaded files into the <code>articles/</code> folder in this project</li>
+                            <li>Articles will appear on the Tech News page after you redeploy the site</li>
+                            <li>Each article gets a unique filename like <code>user-article-123456.html</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>Test Upload</h3>
+                    <p>You can test the upload functionality with this sample CSV:</p>
+                    <button onclick="downloadSampleCSV()" class="sample-button">Download Sample CSV</button>
+                    <div style="margin-top:12px"></div>
+                    <h3>Publish Manifest</h3>
+                    <p>To make new articles appear on Tech News, download an <code>index.json</code> and place it in the <code>articles/</code> folder, then redeploy.</p>
+                    <button onclick="downloadArticlesIndex()" class="sample-button">Download index.json</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        function checkPassword() {
+            const password = document.getElementById('admin-password').value;
+            const errorDiv = document.getElementById('password-error');
+            
+            if (password === '12345678') {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('upload-section').style.display = 'block';
+                errorDiv.textContent = '';
+            } else {
+                errorDiv.textContent = 'Incorrect password. Please try again.';
+                document.getElementById('admin-password').value = '';
+            }
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('admin-password').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // CSV Upload functionality
+        document.getElementById('csv-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const looksCsv = file && (/\.csv$/i.test(file.name) || file.type === 'text/csv' || file.type === 'text/plain' || file.type === '');
+            if (looksCsv) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        parseCSVAndCreateArticle(e.target.result);
+                    } catch (error) {
+                        showUploadStatus('Error parsing CSV: ' + error.message, 'error');
+                    }
+                };
+                reader.readAsText(file);
+            } else {
+                showUploadStatus('Please select a valid CSV file', 'error');
+            }
+        });
+
+        function parseCSVAndCreateArticle(csvText) {
+            // Strip UTF-8 BOM if present
+            if (csvText && csvText.charCodeAt(0) === 0xFEFF) {
+                csvText = csvText.slice(1);
+            }
+
+            // Parse CSV supporting quotes and newlines
+            const rows = parseCSV(csvText);
+            if (!rows || rows.length < 2) {
+                throw new Error('CSV must have header row and at least one data row');
+            }
+
+            const headers = rows[0].map(h => String(h).replace(/^\uFEFF/, '').toLowerCase().trim());
+            const requiredHeaders = ['title', 'date', 'category', 'excerpt', 'content'];
+
+            // Check required headers
+            for (let header of requiredHeaders) {
+                if (!headers.includes(header)) {
+                    throw new Error('Missing required column: ' + header + '. Found columns: ' + headers.join(', '));
+                }
+            }
+
+            let articlesCreated = 0;
+            const newArticles = [];
+
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                if (!row || row.length !== headers.length) continue;
+                const article = {};
+                headers.forEach((header, index) => {
+                    article[header] = row[index];
+                });
+
+                const articleId = createArticleHTMLFile(article);
+                addArticleToTechNews(article, articleId);
+                newArticles.push(article);
+                articlesCreated++;
+            }
+
+            showUploadStatus('Created ' + articlesCreated + ' article file(s). Files downloaded locally—move them into articles/ and redeploy to publish.', 'success');
+        }
+
+        function createArticleHTMLFile(article) {
+            // Generate a unique article ID
+            const timestamp = Date.now();
+            const articleId = 'user-article-' + timestamp;
+            
+            // Format the date
+            const date = parseYmd(article.date);
+            const formattedDate = date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Generate the HTML content
+            const htmlContent = generateArticleHTML(article, formattedDate);
+            
+            // In a real environment, this would write to the filesystem
+            // For demonstration, we'll download the file for the user to save
+            downloadHTMLFile(htmlContent, articleId + '.html');
+            
+            // Store the article info for adding to tech news
+            let existingArticles = JSON.parse(localStorage.getItem('generatedArticles') || '[]');
+            const articleInfo = {
+                id: articleId,
+                title: article.title,
+                date: article.date,
+                category: article.category,
+                excerpt: article.excerpt,
+                content: article.content,
+                fileName: 'articles/' + articleId + '.html',
+                timestamp: timestamp
+            };
+            existingArticles.unshift(articleInfo);
+            localStorage.setItem('generatedArticles', JSON.stringify(existingArticles));
+            
+            return articleId;
+        }
+
+        function generateArticleHTML(article, formattedDate) {
+            var htmlContent = '<!DOCTYPE html>\n' +
+'<html lang="en">\n' +
+'<head>\n' +
+'    <meta charset="UTF-8">\n' +
+'    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+'    <title>' + escapeHtml(article.title) + ' - AI Intersections</title>\n' +
+'    <link rel="stylesheet" href="../styles.css">\n' +
+'</head>\n' +
+'<body class="article-page">\n' +
+'    <nav>\n' +
+'        <div class="nav-container">\n' +
+'            <a href="../index.html" class="nav-logo">AI Intersections</a>\n' +
+'            <ul class="nav-menu">\n' +
+'                <li><a href="../index.html">Home</a></li>\n' +
+'                <li><a href="../updates.html">Updates</a></li>\n' +
+'                <li><a href="../guides.html">Guides</a></li>\n' +
+'                <li><a href="../tech-news.html">Tech News</a></li>\n' +
+'            </ul>\n' +
+'        </div>\n' +
+'    </nav>\n' +
+'\n' +
+'    <div class="container">\n' +
+'        <main class="main-content">\n' +
+'            <div class="back-nav">\n' +
+'                <a href="../tech-news.html" class="back-link">← Back to Tech News</a>\n' +
+'            </div>\n' +
+'\n' +
+'            <div class="article-header">\n' +
+'                <div class="article-meta">\n' +
+'                    <span class="article-date">' + formattedDate + '</span>\n' +
+'                    <span class="article-category">' + escapeHtml(article.category) + '</span>\n' +
+'                </div>\n' +
+'                <h1>' + escapeHtml(article.title) + '</h1>\n' +
+'            </div>\n' +
+'\n' +
+'            <div class="article-body">\n' +
+'                ' + article.content + '\n' +
+'            </div>\n' +
+'        </main>\n' +
+'    </div>\n' +
+'\n' +
+'    <script>\n' +
+'        let lastScrollTop = 0;\n' +
+'        const nav = document.querySelector("nav");\n' +
+'        \n' +
+'        window.addEventListener("scroll", function() {\n' +
+'            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;\n' +
+'            \n' +
+'            if (scrollTop > lastScrollTop && scrollTop > 100) {\n' +
+'                nav.classList.add("hidden");\n' +
+'            } else {\n' +
+'                nav.classList.remove("hidden");\n' +
+'            }\n' +
+'            \n' +
+'            lastScrollTop = scrollTop;\n' +
+'        });\n' +
+"    </scr" + "ipt>\n" +
+'</body>\n' +
+'</html>';
+            
+            return htmlContent;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function downloadHTMLFile(content, filename) {
+            const blob = new Blob([content], { type: 'text/html' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function addArticleToTechNews(article, articleId) {
+            // This function updates the tech news page to include the new article
+            // The actual display will be handled by the tech news page loading the stored article info
+            console.log('Article ' + articleId + ' will be added to tech news page');
+        }
+
+        function parseCSVRow(row) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < row.length; i++) {
+                const char = row[i];
+                const nextChar = row[i + 1];
+                
+                if (char === '"') {
+                    if (inQuotes && nextChar === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            
+            result.push(current.trim());
+            return result;
+        }
+
+        function formatDate(dateString) {
+            const date = parseYmd(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Parse YYYY-MM-DD as local date (avoid timezone shift)
+        function parseYmd(ymd) {
+            if (!ymd) return new Date(NaN);
+            const parts = String(ymd).split('-');
+            if (parts.length < 3) return new Date(ymd);
+            const y = parseInt(parts[0], 10);
+            const m = parseInt(parts[1], 10) - 1;
+            const d = parseInt(parts[2], 10);
+            return new Date(y, m, d);
+        }
+
+        function showUploadStatus(message, type) {
+            const statusDiv = document.getElementById('upload-status');
+            statusDiv.textContent = message;
+            statusDiv.className = 'upload-status ' + type;
+            setTimeout(function() {
+                statusDiv.textContent = '';
+                statusDiv.className = 'upload-status';
+            }, 10000);
+        }
+
+        // Robust CSV parser supporting quoted fields and embedded newlines
+        function parseCSV(text) {
+            const rows = [];
+            let row = [];
+            let field = '';
+            let i = 0;
+            let inQuotes = false;
+            while (i < text.length) {
+                const ch = text[i];
+                if (ch === '"') {
+                    if (inQuotes && text[i + 1] === '"') {
+                        field += '"';
+                        i += 2;
+                        continue;
+                    }
+                    inQuotes = !inQuotes;
+                    i++;
+                    continue;
+                }
+                if (!inQuotes && ch === ',') {
+                    row.push(field.trim());
+                    field = '';
+                    i++;
+                    continue;
+                }
+                if (!inQuotes && (ch === '\n' || ch === '\r')) {
+                    if (ch === '\r' && text[i + 1] === '\n') i++;
+                    row.push(field.trim());
+                    rows.push(row);
+                    row = [];
+                    field = '';
+                    i++;
+                    continue;
+                }
+                field += ch;
+                i++;
+            }
+            row.push(field.trim());
+            if (row.length) rows.push(row);
+            return rows.filter(r => r.some(c => c !== ''));
+        }
+
+        function downloadSampleCSV() {
+            const csvContent = 'title,date,category,excerpt,content\n"Revolutionary Neural Architecture Search Automates AI Model Design","2025-09-29","Technology","New automated system can design optimal neural network architectures without human intervention, potentially accelerating AI development by 10x...","<p>A team of researchers at Google DeepMind has developed a revolutionary automated neural architecture search (AutoNAS) system that can design optimal AI models without human intervention. This breakthrough could accelerate AI development timelines by up to 10x while producing models that outperform human-designed architectures.</p><p>The AutoNAS system uses a novel combination of evolutionary algorithms and reinforcement learning to explore the vast space of possible neural network designs. Unlike previous approaches that required extensive human expertise and months of experimentation, this system can identify optimal architectures in a matter of hours.</p><h3>Technical Innovation</h3><p>The key breakthrough lies in the systems ability to simultaneously optimize for multiple objectives including accuracy, computational efficiency, and memory usage. The AutoNAS algorithm explores millions of potential architectures using advanced search strategies that learn from previous experiments to guide future exploration.</p><h3>Industry Impact</h3><p>This technology could democratize AI development by removing the need for specialized architecture design expertise. Smaller companies and research teams could now develop cutting-edge AI models without requiring teams of PhD-level researchers specializing in neural network design.</p>"';
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sample-article.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function downloadArticlesIndex() {
+            const articles = JSON.parse(localStorage.getItem('generatedArticles') || '[]');
+            // Only include fields needed for cards
+            const manifest = articles.map(a => ({
+                id: a.id,
+                title: a.title,
+                date: a.date,
+                category: a.category,
+                excerpt: a.excerpt,
+                fileName: a.fileName,
+                timestamp: a.timestamp
+            }));
+            const json = JSON.stringify(manifest, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            showUploadStatus('index.json downloaded. Move it into the articles/ folder and redeploy.', 'success');
+        }
+    </script>
+</body>
+</html>

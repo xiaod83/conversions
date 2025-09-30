@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Article - AI Intersections</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="article-page">
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">AI Intersections</a>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../updates.html">Updates</a></li>
+                <li><a href="../guides.html">Guides</a></li>
+                <li><a href="../tech-news.html">Tech News</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main class="main-content">
+            <div class="back-nav">
+                <a href="../tech-news.html" class="back-link">← Back to Tech News</a>
+            </div>
+
+            <div class="article-header">
+                <div class="article-meta">
+                    <span class="article-date">September 29, 2025</span>
+                    <span class="article-category">Technology</span>
+                </div>
+                <h1>Test Article</h1>
+            </div>
+
+            <div class="article-body">
+                <p>This is a test to test the article upload.</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let lastScrollTop = 0;
+        const nav = document.querySelector("nav");
+        
+        window.addEventListener("scroll", function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.classList.add("hidden");
+            } else {
+                nav.classList.remove("hidden");
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>
