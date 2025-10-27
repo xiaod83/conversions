@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>conversions.studio - About</title>
+    <link rel="icon" type="image/png" sizes="64x64" href="logos/Conversions Logo Upscaled NoBG.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logos/Conversions Logo Upscaled NoBG.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="logos/Conversions Logo with Letters NoBG.png" alt="conversions.studio logo">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="series.html">Series</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main class="main-content">
+            <h1>About conversions.studio</h1>
+            <p>Where data becomes decisions. conversions.studio explores optimization strategies, conversion techniques, and growth methodologies that transform how businesses understand and improve their performance.</p>
+
+            <h2>Our Focus</h2>
+            <p>We analyze real conversion patterns and optimization strategies that deliver measurable results across industries. From A/B testing to funnel optimization, we focus on techniques you can implement to improve your conversion rates.</p>
+
+            <h2>What you'll find here</h2>
+            <p>Practical guides, curated series, and concise updates on the latest developments in data-driven growth and AI-assisted optimization.</p>
+        </main>
+    </div>
+
+    <script>
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>
