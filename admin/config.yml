@@ -1,0 +1,29 @@
+backend:
+  name: github
+  repo: xiaod83/conversions # replace with your GitHub repo (owner/name)
+  branch: main
+
+# If you're using a GitHub OAuth app or an auth proxy set client_id here. For Vercel deployments
+# you will typically register a GitHub OAuth App and set the client id in the OAuth proxy or
+# add an auth endpoint. See README for steps.
+# client_id: "YOUR_GITHUB_OAUTH_APP_CLIENT_ID"
+
+media_folder: "assets/images"
+public_folder: "/images"
+
+collections:
+  - name: "articles"
+    label: "Articles"
+    folder: "series"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+# Notes:
+# 1) Replace `repo` with your repository in the format owner/name.
+# 2) To allow Decap CMS to commit to the repo when hosted on Vercel,
+#    you'll need to configure a GitHub OAuth app or an auth proxy and
+#    add the necessary client id/secret or proxy endpoint.

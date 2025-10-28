@@ -1,14 +1,16 @@
 {
-  "name": "ai-intersections",
-  "version": "1.0.0",
-  "description": "AI Intersections - Website about the intersection of AI and other fields",
-  "main": "server.js",
+  "name": "conversions",
+  "version": "0.1.0",
+  "description": "Conversions — static site with CMS-ready admin (Decap CMS) and Vercel-friendly setup.",
+  "main": "index.html",
   "scripts": {
-    "start": "node server.js",
+    "build": "echo \"No build step for static site\"",
+    "vercel-build": "npm run build",
+    "start": "node server.js || echo \"no server configured\"",
     "dev": "nodemon server.js"
   },
-  "keywords": ["ai", "artificial intelligence", "website", "blog", "cms"],
-  "author": "AI Intersections",
+  "keywords": ["conversions", "static-site", "cms", "decap-cms", "vercel"],
+  "author": "xiaod83",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
@@ -20,5 +22,9 @@
   },
   "engines": {
     "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaod83/conversions.git"
   }
 }
