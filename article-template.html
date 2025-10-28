@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>conversions.studio - Article Title</title>
+    <link rel="icon" type="image/png" sizes="64x64" href="../logos/Conversions Logo Upscaled NoBG.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../logos/Conversions Logo Upscaled NoBG.png">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <img src="../logos/Conversions Logo with Letters NoBG.png" alt="conversions.studio logo">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../series.html">Series</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main class="main-content article-page">
+            <div class="back-nav">
+                <a href="../boot-sequence.html" class="back-link">← Back to Boot Sequence Series</a>
+            </div>
+
+            <div class="article-header">
+                <div class="article-meta">
+                    <span class="article-date">October 27, 2025</span>
+                    <span class="article-category">Boot Sequence</span>
+                </div>
+                <h1>Article Title Goes Here</h1>
+            </div>
+
+            <div class="article-body">
+                <p>Your article introduction goes here. This is where you'll engage readers and set the context for what they're about to learn.</p>
+
+                <h3>First Section Heading</h3>
+                <p>Content for your first section. Explain concepts clearly and provide practical examples.</p>
+
+                <h3>Second Section Heading</h3>
+                <p>More detailed content. You can include:</p>
+                <ul>
+                    <li>Bullet points for key concepts</li>
+                    <li>Code examples using <code>inline code</code></li>
+                    <li>Technical explanations</li>
+                    <li>Practical applications</li>
+                </ul>
+
+                <h3>Conclusion</h3>
+                <p>Wrap up your article with key takeaways and next steps for readers.</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>
