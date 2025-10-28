@@ -7,7 +7,7 @@ backend:
 # you will typically register a GitHub OAuth App and set the client id in the OAuth proxy or
 # add an auth endpoint. See README for steps.
 # client_id: "YOUR_GITHUB_OAUTH_APP_CLIENT_ID"
-
+client_id: Ov23liATX3CKNIxi3eGn
 media_folder: "assets/images"
 public_folder: "/images"
 
