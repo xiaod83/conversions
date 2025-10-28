@@ -1,33 +1,144 @@
-# AI Intersections
+# Conversions Studio
 
-A modern, uniquely designed website about the intersection of AI and other fields - featuring a dark theme with interactive elements and a production-ready content management system.
+A modern static website featuring student-written STEM articles and guides. Built with clean HTML, CSS, and JavaScript, optimized for Vercel deployment.
 
-## 🎨 New Design Features
-
-The website has been completely redesigned with a unique, modern aesthetic that stands out from typical AI-generated sites:
+## 🎨 Design Features
 
 ### Visual Design
-- **Dark theme** with custom color palette and gradients
-- **Animated background patterns** with floating elements
-- **Glassmorphism effects** with backdrop filters and transparency
-- **Interactive hover animations** and smooth transitions
-- **Custom typography** using Inter and JetBrains Mono fonts
-- **Gradient accents** and glowing effects throughout
+- **Clean, editorial design** with warm cream background and monospace typography
+- **Responsive navigation** that hides on scroll for better reading experience
+- **Modern card layouts** for articles and series
+- **Custom styling** using Consolas/Courier New monospace fonts
+- **Professional color palette** with orange accents and warm tones
 
-### Unique Elements
-- **Animated logo** with blinking cursor effect
-- **Feature cards** with hover transformations
-- **Gradient borders** that animate on interaction
-- **Custom navigation** with sliding background effects
-- **Article cards** with 3D hover effects and gradient overlays
-- **Form components** with modern styling and feedback
+## 🚀 Getting Started
 
-### Technical Features
-- **Fully responsive** design that works on all devices
-- **CSS custom properties** for consistent theming
-- **Smooth animations** using cubic-bezier timing functions
-- **Optimized performance** with efficient CSS and minimal JavaScript
-- **Accessibility friendly** with proper contrast and focus states
+### Local Development
+Run a local server to preview the site:
+
+```bash
+# Using Python (Mac/Linux)
+npm run dev
+
+# Using Python (Windows)
+npm run dev:win
+
+# Or use any static file server
+python3 -m http.server 8000
+```
+
+Then open http://localhost:8000 in your browser.
+
+## 📝 Content Management with Decap CMS
+
+The site includes Decap CMS (formerly Netlify CMS) for content management:
+
+1. Access the admin panel at `/admin/` when deployed
+2. Configure GitHub OAuth for authentication (see Decap CMS docs)
+3. Edit the `admin/config.yml` file to customize collections and fields
+
+**Note:** Decap CMS requires proper authentication setup to commit changes. See the [Decap CMS documentation](https://decapcms.org/docs/authentication-backends/) for setup instructions.
+
+## 🚀 Deploying to Vercel
+
+This site is optimized for Vercel deployment:
+
+### Quick Deploy Steps
+
+1. **Push to GitHub**: Ensure your code is in a GitHub repository
+   ```bash
+   git add .
+   git commit -m "Ready for deployment"
+   git push origin main
+   ```
+
+2. **Import to Vercel**:
+   - Go to [vercel.com](https://vercel.com)
+   - Click "Import Project"
+   - Select your GitHub repository
+   - Vercel will automatically detect it as a static site
+
+3. **Deploy**: Click "Deploy" - no build configuration needed!
+
+### Automatic Deployments
+- Every push to `main` branch triggers a new deployment
+- Pull requests create preview deployments
+- No build step required (pure static site)
+
+### Custom Domain (Optional)
+1. In Vercel dashboard, go to your project settings
+2. Click "Domains"
+3. Add your custom domain and follow DNS setup instructions
+
+## 📁 Project Structure
+
+```
+conversions/
+├── index.html              # Homepage
+├── about.html              # About page
+├── styles.css              # Global styles
+├── series/                 # Article series
+│   ├── index.html          # Series overview
+│   ├── boot-sequence/      # PC hardware series
+│   ├── orthopedics/        # Medical series
+│   └── sat/                # SAT prep series
+├── admin/                  # Decap CMS admin panel
+│   ├── index.html
+│   └── config.yml
+├── logos/                  # Site logos and images
+├── vercel.json             # Vercel configuration
+└── package.json            # Project metadata
+```
+
+## 🎯 Content Structure
+
+### Series
+The site organizes content into series:
+- **Boot Sequence**: PC hardware, building, and maintenance
+- **Orthopedics**: Practical musculoskeletal health primers
+- **SAT**: Test prep tips and strategies
+
+Each series has its own directory with an index page listing all articles.
+
+## 🛠 Technical Details
+
+- **Pure Static Site**: No build process, no server-side code
+- **Vanilla JavaScript**: No frameworks, lightweight and fast
+- **Responsive Design**: Works on all device sizes
+- **SEO Friendly**: Proper meta tags and semantic HTML
+- **Fast Loading**: Optimized assets and minimal dependencies
+
+## 📝 Adding Content
+
+### Manual Method
+1. Create a new HTML file in the appropriate series directory
+2. Follow the existing article template structure
+3. Update the series index.html to link to your new article
+4. Commit and push to deploy
+
+### Using Decap CMS (Recommended)
+1. Set up GitHub OAuth authentication
+2. Access `/admin/` on your deployed site
+3. Use the visual editor to create and manage content
+
+## 🌐 Browser Support
+
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari 14+
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## 📄 License
+
+MIT License - see repository for details.
+
+## 👤 Author
+
+xiaod83
+
+## 🔗 Repository
+
+https://github.com/xiaod83/conversions
 
 ## 🚀 Getting Started
 
@@ -120,3 +231,22 @@ The design is fully responsive with:
 - ❌ Manual file handling → ✅ Automated system
 
 This new design provides a distinctive, modern experience that reflects the cutting-edge nature of AI technology while maintaining excellent usability and performance.
+
+## Vercel deployment
+
+This repository is a static site and is configured to deploy cleanly on Vercel.
+
+- A `vercel.json` is included and forces Vercel to treat the project as a static deployment (`@vercel/static`).
+- A `.vercelignore` file is included to avoid uploading local/dev artifacts.
+
+Quick steps to deploy:
+
+1. Push this repository to GitHub (or another supported Git provider).
+2. In the Vercel dashboard, "Import Project" → select this repository.
+3. Accept the defaults. The `vercel.json` will ensure Vercel serves the repository as a static site.
+4. For a custom domain: add it in the Vercel dashboard. The `CNAME` file in this repo is only informational — configure the domain in Vercel instead of relying on the file.
+
+Notes:
+- There is no build step required — the site is plain HTML/CSS/JS in the repo root.
+- If you add a build process later (Svelte/Next/etc.), update `vercel.json` and the `build` script in `package.json` accordingly.
+

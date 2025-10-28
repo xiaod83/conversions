@@ -2,30 +2,18 @@
   "name": "conversions",
   "version": "0.1.0",
   "description": "Conversions — static site with CMS-ready admin (Decap CMS) and Vercel-friendly setup.",
-  "main": "index.html",
   "scripts": {
-    "build": "echo \"No build step for static site\"",
-    "vercel-build": "npm run build",
-    "start": "node server.js || echo \"no server configured\"",
-    "dev": "nodemon server.js"
+    "dev": "python3 -m http.server 8000",
+    "dev:win": "python -m http.server 8000"
   },
   "keywords": ["conversions", "static-site", "cms", "decap-cms", "vercel"],
   "author": "xiaod83",
   "license": "MIT",
-  "dependencies": {
-    "express": "^4.18.2",
-    "fs-extra": "^11.1.1",
-    "multer": "^1.4.5-lts.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/xiaod83/conversions.git"
-  },
-  "outputDirectory": "."
+  }
 }
