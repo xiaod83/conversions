@@ -2,12 +2,15 @@ backend:
   name: github
   repo: xiaod83/conversions # replace with your GitHub repo (owner/name)
   branch: main
+  auth_type: implicit
+  client_id: Ov23liATX3CKNIxi3eGn
+
 
 # If you're using a GitHub OAuth app or an auth proxy set client_id here. For Vercel deployments
 # you will typically register a GitHub OAuth App and set the client id in the OAuth proxy or
 # add an auth endpoint. See README for steps.
 # client_id: "YOUR_GITHUB_OAUTH_APP_CLIENT_ID"
-client_id: Ov23liATX3CKNIxi3eGn
+
 media_folder: "assets/images"
 public_folder: "/images"
 
