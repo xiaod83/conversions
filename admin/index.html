@@ -1,28 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Admin — Decap CMS</title>
-    <!--
-      This admin page loads Decap CMS from a CDN. Replace the CDN URL with a specific
-      release if you need to pin a version. Decap CMS will look for /admin/config.yml
-      by default.
-    -->
-    <link rel="stylesheet" href="https://unpkg.com/decap-cms@latest/dist/decap-cms.css" />
-    <script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.0.0/dist/decap-cms.js</script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
   </head>
   <body>
-    <script>
-      // Initialize Decap CMS if loaded
-      if (window.CMS) {
-        window.CMS.init();
-      } else {
-        // If CDN path is invalid, the user will see this message and can replace the URL.
-        document.body.innerHTML = '<h1>Decap CMS not loaded</h1><p>Replace the CDN URL in <code>/admin/index.html</code> with a valid Decap CMS distribution.</p>';
-        console.warn('Decap CMS not found — replace the CDN URL with a valid Decap CMS release if needed.');
-      }
-    </script>
+    <!-- Include the script that builds the page and powers Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>

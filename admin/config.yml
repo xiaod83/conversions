@@ -1,32 +1,53 @@
 backend:
   name: github
-  repo: xiaod83/conversions # replace with your GitHub repo (owner/name)
+  repo: xiaod83/conversions
   branch: main
-  auth_type: implicit
-  client_id: Ov23liATX3CKNIxi3eGn
 
+# Enable local backend for testing without authentication
+local_backend: true
 
-# If you're using a GitHub OAuth app or an auth proxy set client_id here. For Vercel deployments
-# you will typically register a GitHub OAuth App and set the client id in the OAuth proxy or
-# add an auth endpoint. See README for steps.
-# client_id: "YOUR_GITHUB_OAUTH_APP_CLIENT_ID"
-
-media_folder: "assets/images"
-public_folder: "/images"
+media_folder: "logos"
+public_folder: "/logos"
 
 collections:
-  - name: "articles"
-    label: "Articles"
-    folder: "series"
+  - name: "boot-sequence"
+    label: "Boot Sequence Articles"
+    folder: "series/boot-sequence"
     create: true
     slug: "{{slug}}"
+    extension: "html"
+    format: "frontmatter"
     fields:
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Category", name: "category", widget: "string", default: "Boot Sequence"}
+      - {label: "Excerpt", name: "excerpt", widget: "text"}
       - {label: "Body", name: "body", widget: "markdown"}
 
-# Notes:
-# 1) Replace `repo` with your repository in the format owner/name.
-# 2) To allow Decap CMS to commit to the repo when hosted on Vercel,
-#    you'll need to configure a GitHub OAuth app or an auth proxy and
-#    add the necessary client id/secret or proxy endpoint.
+  - name: "sat"
+    label: "SAT Articles"
+    folder: "series/sat"
+    create: true
+    slug: "{{slug}}"
+    extension: "html"
+    format: "frontmatter"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Category", name: "category", widget: "string", default: "SAT"}
+      - {label: "Excerpt", name: "excerpt", widget: "text"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "orthopedics"
+    label: "Orthopedics Articles"
+    folder: "series/orthopedics"
+    create: true
+    slug: "{{slug}}"
+    extension: "html"
+    format: "frontmatter"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Category", name: "category", widget: "string", default: "Orthopedics"}
+      - {label: "Excerpt", name: "excerpt", widget: "text"}
+      - {label: "Body", name: "body", widget: "markdown"}
