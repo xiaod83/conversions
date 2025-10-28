@@ -4,10 +4,73 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
-    <link href="config.yml" type="text/yaml" rel="cms-config-url">
   </head>
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      CMS.init({
+        config: {
+          backend: {
+            name: 'github',
+            repo: 'xiaod83/conversions',
+            branch: 'main'
+          },
+          local_backend: true,
+          media_folder: 'logos',
+          public_folder: '/logos',
+          collections: [
+            {
+              name: 'boot-sequence',
+              label: 'Boot Sequence Articles',
+              folder: 'series/boot-sequence',
+              create: true,
+              slug: '{{slug}}',
+              extension: 'html',
+              format: 'frontmatter',
+              fields: [
+                { label: 'Title', name: 'title', widget: 'string' },
+                { label: 'Publish Date', name: 'date', widget: 'datetime' },
+                { label: 'Category', name: 'category', widget: 'string', default: 'Boot Sequence' },
+                { label: 'Excerpt', name: 'excerpt', widget: 'text' },
+                { label: 'Body', name: 'body', widget: 'markdown' }
+              ]
+            },
+            {
+              name: 'sat',
+              label: 'SAT Articles',
+              folder: 'series/sat',
+              create: true,
+              slug: '{{slug}}',
+              extension: 'html',
+              format: 'frontmatter',
+              fields: [
+                { label: 'Title', name: 'title', widget: 'string' },
+                { label: 'Publish Date', name: 'date', widget: 'datetime' },
+                { label: 'Category', name: 'category', widget: 'string', default: 'SAT' },
+                { label: 'Excerpt', name: 'excerpt', widget: 'text' },
+                { label: 'Body', name: 'body', widget: 'markdown' }
+              ]
+            },
+            {
+              name: 'orthopedics',
+              label: 'Orthopedics Articles',
+              folder: 'series/orthopedics',
+              create: true,
+              slug: '{{slug}}',
+              extension: 'html',
+              format: 'frontmatter',
+              fields: [
+                { label: 'Title', name: 'title', widget: 'string' },
+                { label: 'Publish Date', name: 'date', widget: 'datetime' },
+                { label: 'Category', name: 'category', widget: 'string', default: 'Orthopedics' },
+                { label: 'Excerpt', name: 'excerpt', widget: 'text' },
+                { label: 'Body', name: 'body', widget: 'markdown' }
+              ]
+            }
+          ]
+        }
+      });
+    </script>
   </body>
 </html>
