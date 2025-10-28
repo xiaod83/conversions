@@ -1,9 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Use Consolas / monospace across the site per site pivot */
+/* If Consolas is not available, fall back to Courier New or the user's monospace */
+/* Keeping the original font import commented out intentionally */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap'); */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Consolas', 'Courier New', monospace !important;
 }
 
 :root {
@@ -24,7 +34,7 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', system-ui, sans-serif;
+    /* global monospace enforced via wildcard above */
     line-height: 1.65;
     color: var(--text-primary);
     background: var(--cream);
