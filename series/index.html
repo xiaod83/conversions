@@ -1,47 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Series — conversions.studio</title>
-  <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-  <nav>
-    <div class="nav-container">
-      <a href="/index.html" class="nav-logo">
-        <img src="/logos/Conversions Logo with Letters NoBG.png" alt="logo">
-      </a>
-      <ul class="nav-menu">
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/series/" class="active">Series</a></li>
-      </ul>
+---
+layout: default
+title: All Content
+---
+
+<h1>All Content</h1>
+<p>Browse all our STEM guides and articles by series.</p>
+
+<!-- Category Filter -->
+<div class="category-filter" style="margin: 32px 0; display: flex; gap: 12px; flex-wrap: wrap;">
+  <button class="filter-btn active" data-category="all">All</button>
+  <button class="filter-btn" data-category="Boot Sequence">Boot Sequence</button>
+  <button class="filter-btn" data-category="SAT">SAT</button>
+  <button class="filter-btn" data-category="Orthopedics">Orthopedics</button>
+</div>
+
+<!-- Posts List -->
+<div class="posts-list">
+{% assign sorted_posts = site.posts | sort: 'date' | reverse %}
+{% for post in sorted_posts %}
+  <article class="post-preview" data-category="{{ post.category }}">
+    <div class="post-meta">
+      <time datetime="{{ post.date | date_to_xmlschema }}">
+        {{ post.date | date: "%B %d, %Y" }}
+      </time>
+      {% if post.category %}
+      <span class="post-category">{{ post.category }}</span>
+      {% endif %}
     </div>
-  </nav>
+    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+    {% if post.excerpt %}
+    <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 50 }}</p>
+    {% endif %}
+    <a href="{{ post.url }}" class="read-more">Read more →</a>
+  </article>
+{% endfor %}
+</div>
 
-  <div class="container">
-    <main class="main-content">
-      <h1>Series</h1>
-      <p>Student-written STEM guides grouped by series. Pick a series below.</p>
+{% if site.posts.size == 0 %}
+<p>No posts yet. Check back soon!</p>
+{% endif %}
 
-      <div class="series-grid">
-        <div class="series-card">
-          <h2><a href="/series/sat/">SAT</a></h2>
-          <p>Concise SAT tips, worked problems, and study strategies.</p>
-        </div>
+<style>
+.filter-btn {
+  background: white;
+  border: 1px solid var(--border-light);
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
 
-        <div class="series-card">
-          <h2><a href="/series/boot-sequence/">Boot Sequence</a></h2>
-          <p>Application-focused PC hardware guides: building, troubleshooting, and practical advice.</p>
-        </div>
+.filter-btn:hover {
+  border-color: var(--primary-orange);
+  color: var(--primary-orange);
+}
 
-        <div class="series-card">
-          <h2><a href="/series/orthopedics/">Orthopedics</a></h2>
-          <p>Practical musculoskeletal primers: prevention and basic first aid.</p>
-        </div>
-      </div>
-    </main>
-  </div>
-</body>
-</html>
+.filter-btn.active {
+  background: var(--primary-orange);
+  color: white;
+  border-color: var(--primary-orange);
+}
+
+.post-category {
+  background: var(--light-orange);
+  color: var(--primary-orange);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+</style>
+
+<script>
+// Category filter functionality
+const filterBtns = document.querySelectorAll('.filter-btn');
+const posts = document.querySelectorAll('.post-preview');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const category = btn.dataset.category;
+    
+    // Update active button
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // Filter posts
+    posts.forEach(post => {
+      if (category === 'all' || post.dataset.category === category) {
+        post.style.display = 'block';
+      } else {
+        post.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
