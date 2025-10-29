@@ -1,71 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>conversions.studio - Home</title>
-    <link rel="icon" type="image/png" sizes="64x64" href="logos/Conversions Logo Upscaled NoBG.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="logos/Conversions Logo Upscaled NoBG.png">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <nav>
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <img src="logos/Conversions Logo with Letters NoBG.png" alt="conversions.studio logo">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="/index.html" class="active">Home</a></li>
-                <li><a href="/about.html">About</a></li>
-                <li><a href="/series/index.html">Series</a></li>
-            </ul>
+---
+layout: default
+title: Home
+---
+<div class="intro-section">
+    <h1>conversions.studio</h1>
+    
+    <p class="lead">Student-written STEM explainers and guides for everyday learners and students. Practical, clear, and concise.</p>
+
+    <div class="principles">
+        <div class="principle">
+            <h3>Clear Explanations</h3>
+            <p>Short, student-written explainers that make STEM topics approachable.</p>
         </div>
-    </nav>
-
-    <div class="container">
-        <main class="main-content">
-            <div class="intro-section">
-                <h1>conversions.studio</h1>
-                
-                <p class="lead">Student-written STEM explainers and guides for everyday learners and students. Practical, clear, and concise.</p>
-
-                <div class="principles">
-                    <div class="principle">
-                        <h3>Clear Explanations</h3>
-                        <p>Short, student-written explainers that make STEM topics approachable.</p>
-                    </div>
-                    <div class="principle">
-                        <h3>Useful Topics</h3>
-                        <p>From SAT tips to computer hardware basics and practical orthopedics primers.</p>
-                    </div>
-                    <div class="principle">
-                        <h3>For Students</h3>
-                        <p>Written by students for students — focused on clarity and usefulness.</p>
-                    </div>
-                </div>
-            </div>
-
-            <h2>Featured series</h2>
-
-            <p>Explore our focused series on SAT, Computer Hardware, and Orthopedics. Visit Series to jump to any topic.</p>
-        </main>
+        <div class="principle">
+            <h3>Useful Topics</h3>
+            <p>From SAT tips to computer hardware basics and practical orthopedics primers.</p>
+        </div>
+        <div class="principle">
+            <h3>For Students</h3>
+            <p>Written by students for students — focused on clarity and usefulness.</p>
+        </div>
     </div>
+</div>
 
-    <script>
-        let lastScrollTop = 0;
-        const nav = document.querySelector('nav');
-        
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                nav.classList.add('hidden');
-            } else {
-                nav.classList.remove('hidden');
-            }
-            
-            lastScrollTop = scrollTop;
-        });
-    </script>
-</body>
-</html>
+<h2>Featured series</h2>
+
+<p>Explore our focused series on SAT, Computer Hardware, and Orthopedics. Visit Series to jump to any topic.</p>

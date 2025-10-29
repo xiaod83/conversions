@@ -1,0 +1,29 @@
+# Site settings
+title: conversions.studio
+description: Student-written STEM explainers and guides for everyday learners and students
+url: "https://conversions.studio"
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /posts/:year/:month/:day/:title/
+
+# Exclude from processing
+exclude:
+  - README.md
+  - package.json
+  - node_modules/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
