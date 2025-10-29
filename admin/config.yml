@@ -2,7 +2,7 @@ backend:
   name: github
   repo: xiaod83/conversions
   branch: main
-  base_url: https://conversions-pi.vercel.app/ # Replace with your Vercel URL
+  base_url: https://conversions-pi.vercel.app # Replace with your Vercel URL
   auth_endpoint: api/auth
   
 
