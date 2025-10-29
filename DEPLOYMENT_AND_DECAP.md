@@ -29,3 +29,35 @@ If you'd like, I can:
  - register a sample GitHub OAuth app configuration in the repo (safely using environment variable placeholders),
  - pin a Decap CMS version,
  - or wire a simple OAuth proxy example for Vercel — tell me which you'd prefer.
+
+
+## GitHub OAuth on Vercel (for Decap CMS)
+
+This repo includes a minimal OAuth proxy for Decap CMS using Vercel Serverless Functions.
+
+Endpoints:
+- `/api/auth` — starts the GitHub OAuth flow
+- `/api/callback` — exchanges `code` for a token and returns it to Decap CMS
+
+Environment variables (set in Vercel Project → Settings → Environment Variables):
+- `GITHUB_CLIENT_ID`
+- `GITHUB_CLIENT_SECRET`
+
+GitHub OAuth App (Settings → Developer settings → OAuth Apps):
+- Homepage URL: `https://<your-vercel-domain>`
+- Authorization callback URL: `https://<your-vercel-domain>/api/callback`
+
+Decap CMS config (`admin/config.yml`):
+
+```yaml
+backend:
+   name: github
+   repo: <owner>/<repo>
+   base_url: https://<your-vercel-domain>
+   auth_endpoint: api/auth
+```
+
+After deploying:
+1) Open `https://<your-vercel-domain>/admin`
+2) Click “Login with GitHub” — you should be sent to `github.com`, not `api.netlify.com`
+3) Approve OAuth and you’ll be redirected to `/api/callback`, which will close the popup and log you in
