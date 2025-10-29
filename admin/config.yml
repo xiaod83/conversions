@@ -2,8 +2,8 @@ backend:
   name: github
   repo: xiaod83/conversions
   branch: main
-  base_url: https://conversions-pi.vercel.app # Replace with your Vercel URL
-  auth_endpoint: api/auth
+  base_url: conversions.studio # Replace with your Vercel URL
+  auth_endpoint: api.netlify.com
   
 
 # Enable local backend for testing without authentication
