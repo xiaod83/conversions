@@ -2,7 +2,7 @@
 layout: post
 title: "Boot Sequence - Intro to the World of PCs"
 date: 2025-10-27
-author: Eric
+author: Eric Yun
 category: Boot Sequence
 tags: [pc-building, hardware, guide]
 ---
