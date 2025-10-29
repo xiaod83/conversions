@@ -8,6 +8,7 @@
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <link href="admin/config.yml" type="text/yaml" rel="cms-config-url">
+    <!-- Use absolute path so it resolves correctly at /admin -->
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
   </body>
 </html>

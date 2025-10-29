@@ -53,9 +53,9 @@ module.exports = async (req, res) => {
     }
 
     // Success: pass token back to Decap CMS opener window
-    return sendResult(res, 'success', { token: tokenResp.access_token });
+    return sendResult(req, res, 'success', { token: tokenResp.access_token });
   } catch (err) {
-    return sendResult(res, 'error', { message: 'OAuth error', details: String(err) });
+    return sendResult(req, res, 'error', { message: 'OAuth error', details: String(err) });
   }
 };
 
@@ -97,21 +97,41 @@ function exchangeCodeForToken({ clientId, clientSecret, code, redirectUri, state
   });
 }
 
-function sendResult(res, status, payload) {
+function sendResult(req, res, status, payload) {
+  const proto = (req.headers['x-forwarded-proto'] || 'https').toString().split(',')[0];
+  const host = req.headers.host;
+  const origin = `${proto}://${host}`;
   const msg = `authorization:github:${status}:${JSON.stringify(payload)}`;
-  const html = `<!doctype html><html><head><meta charset=\"utf-8\" /></head><body><script>
+
+  // expire oauth_state cookie to avoid reuse
+  const expireCookie = [
+    'oauth_state=',
+    'Path=/',
+    'HttpOnly',
+    'Secure',
+    'SameSite=Lax',
+    'Max-Age=0',
+  ].join('; ');
+
+  const html = `<!doctype html><html><head><meta charset=\"utf-8\" /></head><body>
+  <p>Authentication ${status}. You can close this window.</p>
+  <script>
     (function() {
-      try {
-        if (window.opener) {
-          window.opener.postMessage(${JSON.stringify(msg)}, '*');
-        }
-      } finally {
-        window.close();
-      }
+      var msg = ${JSON.stringify(msg)};
+      var origin = ${JSON.stringify(origin)};
+      try { if (window.opener) { window.opener.postMessage(msg, origin); } } catch (e) {}
+      try { if (window.opener) { window.opener.postMessage(msg, '*'); } } catch (e) {}
+      // Fallback: if opener missing (Safari/blocked), navigate back to admin
+      setTimeout(function(){
+        try { window.close(); } catch (e) {}
+        try { if (!window.opener) { window.location.replace(origin + '/admin/#/'); } } catch (e) {}
+      }, 100);
     })();
   </script></body></html>`;
+
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Set-Cookie', expireCookie);
   res.end(html);
 }
