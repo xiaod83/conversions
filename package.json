@@ -1,7 +1,7 @@
 {
   "name": "conversions",
   "version": "0.1.0",
-  "description": "Conversions — static site with CMS-ready admin (Decap CMS) and Vercel-friendly setup.",
+  "description": "Conversions — static site and Vercel-friendly setup.",
   "scripts": {
     "dev": "python3 -m http.server 8000",
     "dev:win": "python -m http.server 8000"
