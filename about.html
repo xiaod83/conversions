@@ -1,35 +1,77 @@
----
-layout: default
-title: About
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>conversions.studio - About</title>
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/logos/Conversions Logo Upscaled NoBG.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/logos/Conversions Logo Upscaled NoBG.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/logos/Conversions Logo with Letters NoBG.png" alt="conversions.studio logo">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/about.html" class="active">About</a></li>
+                <li><a href="/series/">Series</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<h1>Our Mission</h1>
-<p class="lead">To make complex academic and technical topics understandable, engaging, and relatable — through guides written by students, for students.</p>
+    <div class="container">
+        <main class="main-content">
+            <h1>Our Mission</h1>
+            <p class="lead">To make complex academic and technical topics understandable, engaging, and relatable — through guides written by students, for students.</p>
 
-<h2>Break the Gatekeeping</h2>
-<p>Hard subjects shouldn't feel impossible. Students learn best from peers who just went through it themselves — who remember what was confusing and can explain it in plain English.</p>
+            <h2>Break the Gatekeeping</h2>
+            <p>Hard subjects shouldn't feel impossible. Students learn best from peers who just went through it themselves — who remember what was confusing and can explain it in plain English.</p>
 
-<h2>How It Works</h2>
-<p>We don't post random notes. We build <strong>series</strong> — connected explainers that create learning journeys through subject areas like SAT prep, AP courses, computer hardware, or orthopedics.</p>
+            <h2>How It Works</h2>
+            <p>We don't post random notes. We build <strong>series</strong> — connected explainers that create learning journeys through subject areas like SAT prep, AP courses, computer hardware, or orthopedics.</p>
+            
+            <p>Each series builds real understanding with:</p>
+            <ul>
+                <li><strong>Context and examples</strong> — not just definitions</li>
+                <li><strong>Analogies and visuals</strong> — so concepts actually click</li>
+                <li><strong>Plain-English breakdowns</strong> — no jargon gatekeeping</li>
+                <li><strong>Depth over summaries</strong> — we teach the why, not just the what</li>
+            </ul>
 
-<p>Each series builds real understanding with:</p>
-<ul>
-    <li><strong>Context and examples</strong> — not just definitions</li>
-    <li><strong>Analogies and visuals</strong> — so concepts actually click</li>
-    <li><strong>Plain-English breakdowns</strong> — no jargon gatekeeping</li>
-    <li><strong>Depth over summaries</strong> — we teach the why, not just the what</li>
-</ul>
+            <h2>Our Goals</h2>
+            <ul>
+                <li>Make hard topics accessible to everyone</li>
+                <li>Empower knowledgeable students to teach others</li>
+                <li>Build mastery, not surface-level understanding</li>
+                <li>Blend STEM, humanities, and everything in between</li>
+                <li>Keep it free and open to all</li>
+            </ul>
 
-<h2>Our Goals</h2>
-<ul>
-    <li>Make hard topics accessible to everyone</li>
-    <li>Empower knowledgeable students to teach others</li>
-    <li>Build mastery, not surface-level understanding</li>
-    <li>Blend STEM, humanities, and everything in between</li>
-    <li>Keep it free and open to all</li>
-</ul>
+            <h2>Contribute</h2>
+            <p>If you're a student who just learned something hard and want to help others learn it too, we'd love to feature your explainer. Aim for 600–1,200 words, use examples and analogies, and focus on what helped you understand.</p>
+            
+            <p>Reach out if you want to start a new series or add to an existing one.</p>
+        </main>
+    </div>
 
-<h2>Contribute</h2>
-<p>If you're a student who just learned something hard and want to help others learn it too, we'd love to feature your explainer. Aim for 600–1,200 words, use examples and analogies, and focus on what helped you understand.</p>
-
-<p>Reach out if you want to start a new series or add to an existing one.</p>
+    <script>
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>
