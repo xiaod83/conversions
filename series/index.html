@@ -1,0 +1,101 @@
+---
+layout: default
+title: Browse Series
+---
+
+<h1>Browse the Library</h1>
+<p>Each series is a learning journey through a subject. Pick what you want to master.</p>
+
+<!-- Category Filter -->
+<div class="category-filter" style="margin: 40px 0; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+  <button class="filter-btn active" data-category="all">All Series</button>
+  <button class="filter-btn" data-category="Boot Sequence">Boot Sequence</button>
+  <button class="filter-btn" data-category="SAT">SAT</button>
+  <button class="filter-btn" data-category="Orthopedics">Orthopedics</button>
+</div>
+
+<!-- Posts List -->
+<div class="posts-list">
+{% assign sorted_posts = site.posts | sort: 'date' | reverse %}
+{% for post in sorted_posts %}
+  <article class="post-preview" data-category="{{ post.category }}">
+    <div class="post-meta">
+      <time datetime="{{ post.date | date_to_xmlschema }}">
+        {{ post.date | date: "%B %d, %Y" }}
+      </time>
+      {% if post.category %}
+      <span class="post-category">{{ post.category }}</span>
+      {% endif %}
+    </div>
+    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+    {% if post.excerpt %}
+    <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 50 }}</p>
+    {% endif %}
+    <a href="{{ post.url }}" class="read-more">Read more →</a>
+  </article>
+{% endfor %}
+</div>
+
+{% if site.posts.size == 0 %}
+<p>No posts yet. Check back soon!</p>
+{% endif %}
+
+<style>
+.filter-btn {
+  background: white;
+  border: 1px solid var(--border-light);
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--primary-orange);
+  color: var(--primary-orange);
+}
+
+.filter-btn.active {
+  background: var(--primary-orange);
+  color: white;
+  border-color: var(--primary-orange);
+}
+
+.post-category {
+  background: var(--light-orange);
+  color: var(--primary-orange);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+</style>
+
+<script>
+// Category filter functionality
+const filterBtns = document.querySelectorAll('.filter-btn');
+const posts = document.querySelectorAll('.post-preview');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const category = btn.dataset.category;
+    
+    // Update active button
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // Filter posts
+    posts.forEach(post => {
+      if (category === 'all' || post.dataset.category === category) {
+        post.style.display = 'block';
+      } else {
+        post.style.display = 'none';
+      }
+    });
+  });
+});
+</script>

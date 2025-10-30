@@ -1,0 +1,19 @@
+{
+  "name": "conversions",
+  "version": "0.1.0",
+  "description": "Conversions — static site with CMS-ready admin (Decap CMS) and Vercel-friendly setup.",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "dev:win": "python -m http.server 8000"
+  },
+  "keywords": ["conversions", "static-site", "cms", "decap-cms", "vercel"],
+  "author": "xiaod83",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaod83/conversions.git"
+  }
+}

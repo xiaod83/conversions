@@ -1,0 +1,59 @@
+# pages.yml
+version: 2
+
+site:
+  title: "Conversions"
+  baseurl: "/"
+  output: "."
+
+# This is where you define which folders/pages the CMS can edit
+collections:
+  - name: "pages"
+    label: "Pages"
+    path: "/"
+    fields:
+      - name: "title"
+        label: "Title"
+        type: "string"
+      - name: "body"
+        label: "Body"
+        type: "richtext"
+    files:
+      - name: "home"
+        label: "Home"
+        file: "index.html"
+      - name: "about"
+        label: "About"
+        file: "about.html"
+
+  - name: "series"
+    label: "Series"
+    path: "series"
+    fields:
+      - name: "title"
+        label: "Title"
+        type: "string"
+      - name: "body"
+        label: "Body"
+        type: "richtext"
+    subcollections:
+      - name: "boot-sequence"
+        label: "Boot Sequence"
+        path: "series/boot-sequence"
+      - name: "orthopedics"
+        label: "Orthopedics"
+        path: "series/orthopedics"
+      - name: "sat"
+        label: "SAT"
+        path: "series/sat"
+
+assets:
+  - name: "Logos"
+    path: "assets/logos"
+  - name: "Assets"
+    path: "assets"
+
+metadata:
+  site_title: "Conversions"
+  author: "Kevin Fan"
+  description: "Educational articles and series on science, technology, and more."
