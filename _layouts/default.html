@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-    <link rel="icon" type="image/png" sizes="64x64" href="{{ '/assets/logos/Conversions Logo Upscaled NoBG.png' | relative_url }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/logos/Conversions Logo Upscaled NoBG.png' | relative_url }}">
-    <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}">
+    <link rel="icon" type="image/png" sizes="64x64" href="/assets/logos/Conversions Logo Upscaled NoBG.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/logos/Conversions Logo Upscaled NoBG.png">
+    <link rel="stylesheet" href="/styles.css">
         <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LGGRY4GEMV"></script>
     <script>
@@ -20,13 +20,13 @@
 <body>
     <nav>
         <div class="nav-container">
-            <a href="{{ '/index.html' | relative_url }}" class="nav-logo">
-                <img src="{{ '/assets/logos/Conversions Logo with Letters NoBG.png' | relative_url }}" alt="conversions.studio logo">
+            <a href="/index.html" class="nav-logo">
+                <img src="/assets/logos/Conversions Logo with Letters NoBG.png" alt="conversions.studio logo">
             </a>
             <ul class="nav-menu">
-                <li><a href="{{ '/index.html' | relative_url }}" {% if page.url == "/" or page.url == "/index.html" %}class="active"{% endif %}>Home</a></li>
-                <li><a href="{{ '/about.html' | relative_url }}" {% if page.url == "/about.html" %}class="active"{% endif %}>About</a></li>
-                <li><a href="{{ '/series/' | relative_url }}" {% if page.url contains "/series" or page.url contains "/posts" or page.layout == "post" %}class="active"{% endif %}>Browse</a></li>
+                <li><a href="/index.html" {% if page.url == "/" or page.url == "/index.html" %}class="active"{% endif %}>Home</a></li>
+                <li><a href="/about.html" {% if page.url == "/about.html" %}class="active"{% endif %}>About</a></li>
+                <li><a href="/series/" {% if page.url contains "/series" or page.url contains "/posts" or page.layout == "post" %}class="active"{% endif %}>Browse</a></li>
             </ul>
         </div>
     </nav>
