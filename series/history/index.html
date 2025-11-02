@@ -1,0 +1,24 @@
+---
+layout: default
+title: History Series
+permalink: /series/history/
+---
+
+<h1>History Series</h1>
+<p>History explainers and essays contributed by students.</p>
+
+<div class="posts-list">
+  {% assign history_posts = site.posts | where: "category", "History" | sort: 'date' | reverse %}
+  {% for post in history_posts %}
+    <article class="post-preview">
+      <div class="post-meta"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></div>
+      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+      {% if post.excerpt %}<p>{{ post.excerpt | strip_html | truncatewords: 40 }}</p>{% endif %}
+      <a href="{{ post.url }}" class="read-more">Read more →</a>
+    </article>
+  {% endfor %}
+
+  {% if history_posts == empty %}
+    <p>No History posts yet.</p>
+  {% endif %}
+</div>

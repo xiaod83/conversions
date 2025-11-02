@@ -1,0 +1,24 @@
+---
+layout: default
+title: Coding Series
+permalink: /series/coding/
+---
+
+<h1>Coding Series</h1>
+<p>Guides and explainers on programming, algorithms, and practical coding topics.</p>
+
+<div class="posts-list">
+  {% assign coding_posts = site.posts | where: "category", "Coding" | sort: 'date' | reverse %}
+  {% for post in coding_posts %}
+    <article class="post-preview">
+      <div class="post-meta"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></div>
+      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+      {% if post.excerpt %}<p>{{ post.excerpt | strip_html | truncatewords: 40 }}</p>{% endif %}
+      <a href="{{ post.url }}" class="read-more">Read more →</a>
+    </article>
+  {% endfor %}
+
+  {% if coding_posts == empty %}
+    <p>No Coding posts yet. Want to start a series? Reach out!</p>
+  {% endif %}
+</div>

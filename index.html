@@ -32,6 +32,48 @@ title: Home
 <p>Browse our growing library of series. Each one is a learning journey through a subject area.</p>
 
 <div class="cta-section">
-    <a href="/series/" class="browse-cta">Browse All Series →</a>
+    <a href="series.html" class="browse-cta">Browse All Series →</a>
 </div>
+
+<!-- Spotlight sections: Recent posts, Series spotlight, Contributor spotlight -->
+<section class="spotlights" style="margin-top: 48px; display: grid; grid-template-columns: 1fr; gap: 28px;">
+    <!-- Recent posts -->
+    <div class="recent-posts">
+        <h2>Recent posts</h2>
+        <div class="recent-list">
+            {% assign recent = site.posts | sort: 'date' | reverse | slice: 0,3 %}
+            {% for post in recent %}
+                <article class="mini-post">
+                    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                    <div class="meta"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>{% if post.category %} • <a href="/series/{{ post.category | slugify }}/">{{ post.category }}</a>{% endif %}</div>
+                    {% if post.excerpt %}<p class="mini-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>{% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Series of the Month (uses latest post's category as a spotlight) -->
+    <div class="series-spotlight">
+        {% assign latest = site.posts | sort: 'date' | reverse | first %}
+        {% if latest and latest.category %}
+            <h2>Series Spotlight: {{ latest.category }}</h2>
+            <p>Featured recent post: <strong><a href="{{ latest.url }}">{{ latest.title }}</a></strong></p>
+            <p><a class="browse-cta" href="/series/{{ latest.category | slugify }}/">Explore the {{ latest.category }} series →</a></p>
+        {% endif %}
+    </div>
+
+    <!-- Contributor spotlight (author of latest post) -->
+    <div class="contributor-spotlight">
+        {% if latest and latest.author %}
+            <h2>Student Spotlight: {{ latest.author }}</h2>
+            <p>Recent work from {{ latest.author }}. Read more from this contributor below.</p>
+            <ul>
+                {% assign by_author = site.posts | where: "author", latest.author | sort: 'date' | reverse %}
+                {% for p in by_author limit:5 %}
+                    <li><a href="{{ p.url }}">{{ p.title }}</a> <small>({{ p.date | date: "%b %d, %Y" }})</small></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</section>
 
