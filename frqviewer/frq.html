@@ -1,8 +1,15 @@
----
+--- 
 layout: default
 title: FRQ Viewer
 ---
 
 <div id="frq-container"></div>
-<!-- Use a relative path so the script loads correctly when this page is served from /frqviewer/ -->
-<script src="./frqs.js"></script>
+
+<!-- Provide site-root-aware URLs to the static JS via Liquid -->
+<script>
+  // Jekyll will render the correct path for GitHub Pages (handles baseurl)
+  window.FRQ_JSON = "{{ '/frqviewer/frqs.json' | relative_url }}";
+</script>
+
+<!-- Load the static JS from the right site path as well -->
+<script src="{{ '/frqviewer/frqs.js' | relative_url }}"></script>
