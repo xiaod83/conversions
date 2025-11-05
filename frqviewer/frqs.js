@@ -1,6 +1,9 @@
 // frqs.js
-fetch('frqviewer/frqs.json')
-  .then(res => res.json())
+fetch('./frqs.json')
+  .then(res => {
+    if (!res.ok) throw new Error(`Failed to load frqs.json: ${res.status} ${res.statusText}`);
+    return res.json();
+  })
   .then(questions => {
     const container = document.getElementById("frq-container");
     questions.forEach(q => {
@@ -29,4 +32,9 @@ fetch('frqviewer/frqs.json')
       const hr = document.createElement("hr");
       container.appendChild(hr);
     });
+  })
+  .catch(err => {
+    console.error(err);
+    const container = document.getElementById("frq-container");
+    container.innerHTML = `<p style="color: #b00;">Unable to load questions: ${err.message}</p>`;
   });
