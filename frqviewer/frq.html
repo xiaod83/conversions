@@ -3,12 +3,51 @@ layout: default
 title: FRQ Viewer
 ---
 
-<div id="frq-container"></div>
+<!-- Minimal, page-scoped styles for the new two-pane layout -->
+<link rel="stylesheet" href="{{ '/frqviewer/frq.css' | relative_url }}">
+
+<div id="frq-app" class="frq-app">
+  <aside class="frq-sidebar">
+    <div class="frq-sidebar-header">
+      <h2>Years & Questions</h2>
+      <input id="frq-filter" class="frq-filter" placeholder="Filter by year…" aria-label="Filter by year" />
+    </div>
+    <nav id="frq-menu" class="frq-menu" aria-label="FRQ year and question selector">
+      <!-- Populated by JS -->
+    </nav>
+  </aside>
+
+  <main class="frq-view">
+    <header class="frq-view-header">
+      <div>
+        <h1 id="frq-title" class="frq-title">Select a question</h1>
+        <p id="frq-subtitle" class="frq-subtitle">Use the sidebar to choose a year and question.</p>
+      </div>
+      <div class="frq-controls">
+        <button id="prev-btn" class="frq-btn" title="Previous (←)">Prev</button>
+        <button id="next-btn" class="frq-btn" title="Next (→)">Next</button>
+        <button id="answer-btn" class="frq-btn" disabled>Show Answer</button>
+      </div>
+    </header>
+
+    <section class="frq-canvas" id="frq-canvas" aria-live="polite">
+      <!-- Question/answer images go here -->
+      <div id="frq-placeholder" class="frq-placeholder">Choose a year and question to begin.</div>
+    </section>
+  </main>
+</div>
 
 <!-- Provide site-root-aware URLs to the static JS via Liquid -->
 <script>
   // Jekyll will render the correct path for GitHub Pages (handles baseurl)
   window.FRQ_JSON = "{{ '/frqviewer/frqs.json' | relative_url }}";
+  window.FRQ_ASSETS_BASE = "{{ '/' | relative_url }}";
+  // Accessibility helper: focus outline for keyboard nav
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing');
+  });
+  document.addEventListener('mousedown', () => document.documentElement.classList.remove('user-is-tabbing'));
+  
 </script>
 
 <!-- Load the static JS from the right site path as well -->
