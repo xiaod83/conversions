@@ -16,6 +16,11 @@
   min-height: 70vh;
 }
 
+/* Hard scope and reset inside the viewer area to avoid theme conflicts */
+.frq-app, .frq-app * {
+  box-sizing: border-box;
+}
+
 .frq-sidebar {
   background: var(--panel);
   border-radius: 10px;
@@ -48,6 +53,17 @@
   overflow: auto;
 }
 
+/* Reset any global dropdown/overlay styles applied to <details> */
+.frq-menu details {
+  position: static !important;
+  inset: auto !important;
+  transform: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  max-width: 100% !important;
+}
+
 .frq-year {
   margin: 6px 0;
   background: rgba(255,255,255,0.04);
@@ -58,7 +74,15 @@
   cursor: pointer;
   padding: 8px 10px;
   font-weight: 600;
+  list-style: none;
 }
+.frq-year summary::-webkit-details-marker { display: none; }
+.frq-year summary::marker { content: ''; }
+
+/* Ensure the list is only visible when the details is open (native behavior),
+   but some themes override this with position tricks; enforce block flow */
+.frq-year[open] .frq-q-list { display: grid; }
+.frq-year:not([open]) .frq-q-list { display: none; }
 
 .frq-q-list {
   display: grid;
@@ -68,6 +92,10 @@
 }
 
 .frq-q-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
   padding: 6px 8px;
   border-radius: 6px;
   background: #0e1218;
@@ -109,6 +137,10 @@
 
 .frq-controls { display: flex; gap: 6px; }
 .frq-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
   background: #202734;
   color: var(--text);
   border: 1px solid rgba(255,255,255,0.15);
