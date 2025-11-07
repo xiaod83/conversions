@@ -101,108 +101,128 @@ layout: none
     .frq-year:not([open]) .frq-q-list { display: none; }
 
     .frq-q-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      padding: 6px;
+      grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
       gap: 6px;
-      padding: 8px;
     }
 
     .frq-q-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 8px;
-      border-radius: 6px;
-      background: #0e1218;
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(79,140,255,0.15);
       color: var(--text);
-      border: 1px solid rgba(255,255,255,0.15);
-      cursor: pointer;
       font-size: 0.85rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
     }
-    .frq-q-btn:hover { background: #1a1f2a; }
+    .frq-q-btn:hover { background: rgba(79,140,255,0.3); transform: translateY(-1px); }
     .frq-q-btn[aria-current="true"] {
-      outline: 2px solid var(--accent);
-      background: #1a2332;
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
     }
 
+    /* Main viewer */
     .frq-view {
-      background: var(--bg);
-      border-radius: 10px;
-      color: var(--text);
-      padding: 10px;
-      min-height: 85vh;
       display: flex;
       flex-direction: column;
+      gap: 12px;
     }
 
     .frq-view-header {
+      background: var(--panel);
+      padding: 12px 16px;
+      border-radius: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .frq-title {
-      margin: 0;
-      font-size: 1.25rem;
-    }
-    .frq-subtitle {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
     }
 
-    .frq-controls { display: flex; gap: 6px; }
-    .frq-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: #202734;
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 6px;
-      padding: 6px 10px;
-      cursor: pointer;
+    .frq-subtitle {
       font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 2px;
     }
-    .frq-btn:hover:not(:disabled) { background: #2a3444; }
-    .frq-btn:disabled { opacity: 0.5; cursor: default; }
+
+    .frq-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .frq-btn {
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(79,140,255,0.2);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .frq-btn:hover:not(:disabled) {
+      background: rgba(79,140,255,0.35);
+      transform: translateY(-1px);
+    }
+    .frq-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
 
     .frq-canvas {
-      margin-top: 10px;
-      flex: 1;
-      position: relative;
-      background: #0c0f14;
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
+      background: var(--panel);
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 500px;
       overflow: auto;
     }
 
-    .frq-placeholder { color: var(--muted); }
+    .frq-placeholder {
+      color: var(--muted);
+      font-size: 1.1rem;
+      text-align: center;
+    }
 
     .frq-img-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
       max-width: 100%;
-      max-height: 100%;
-      display: grid;
-      place-items: center;
-      padding: 8px;
     }
 
     .frq-img-wrap img {
-      max-width: min(1100px, 100%);
-      max-height: 80vh;
-      width: auto;
+      max-width: 1100px;
+      width: 100%;
       height: auto;
+      max-height: 80vh;
       object-fit: contain;
       background: white;
       box-shadow: 0 2px 12px rgba(0,0,0,0.4);
       border-radius: 4px;
     }
 
-    .frq-answer-img { margin-top: 10px; }
+    .frq-answer-img { 
+      margin-top: 10px;
+      max-width: 1400px !important;
+      max-height: 90vh !important;
+    }
+
+    .frq-answer-img.hidden {
+      display: none;
+    }
 
     /* Keyboard focus helper */
     .user-is-tabbing .frq-q-btn:focus,
@@ -295,6 +315,7 @@ function bootstrapUI(questions) {
   const nextBtn = document.getElementById('next-btn');
 
   let currentIndex = -1; // index in normal[]
+  let answerVisible = false;
 
   // Build sidebar
   renderMenu(byYear, menu, (year, qNum) => {
@@ -320,7 +341,7 @@ function bootstrapUI(questions) {
     if (e.key === 'ArrowRight') nextBtn?.click();
   });
 
-  answerBtn?.addEventListener('click', () => showAnswer());
+  answerBtn?.addEventListener('click', () => toggleAnswer());
 
   // Select the first item by default
   if (normal.length) selectIndex(0);
@@ -328,6 +349,8 @@ function bootstrapUI(questions) {
   function selectIndex(idx) {
     currentIndex = idx;
     const q = normal[idx];
+    answerVisible = false;
+    
     // Update header
     const isFormB = q.year.includes('B');
     const formLabel = isFormB ? ' (Form B)' : '';
@@ -343,28 +366,39 @@ function bootstrapUI(questions) {
 
     // Highlight current in menu
     menu.querySelectorAll('.frq-q-btn[aria-current="true"]').forEach(el => el.setAttribute('aria-current','false'));
-    const btn = menu.querySelector(`.frq-q-btn[data-year="${q.year}"][data-qnum="${q.qNum}"][data-formb="${q.isFormB}"]`);
+    const btn = menu.querySelector(`.frq-q-btn[data-year="${q.year}"][data-qnum="${q.qNum}"]`);
     if (btn) btn.setAttribute('aria-current','true');
   }
 
-  function showAnswer() {
+  function toggleAnswer() {
     const q = normal[currentIndex];
     if (!q || !q.answerImage) return;
+    
     const answerImg = canvas.querySelector('img.frq-answer-img');
-    if (answerImg) return; // already displayed
-
-    const img = document.createElement('img');
-    img.className = 'frq-answer-img';
-    img.alt = `Answer ${q.id || ''}`.trim();
-    img.src = q.answerImage;
-    img.onload = () => img.style.display = '';
-    img.onerror = () => {
-      img.remove();
-      toast(canvas, 'Answer image could not be loaded.');
-      answerBtn.disabled = false;
-    };
-    canvas.querySelector('.frq-img-wrap')?.appendChild(img);
-    answerBtn.disabled = true;
+    if (!answerImg) {
+      // Create answer image if it doesn't exist
+      const img = document.createElement('img');
+      img.className = 'frq-answer-img';
+      img.alt = `Answer ${q.id || ''}`.trim();
+      img.src = q.answerImage;
+      img.onerror = () => {
+        img.remove();
+        toast(canvas, 'Answer image could not be loaded.');
+      };
+      canvas.querySelector('.frq-img-wrap')?.appendChild(img);
+      answerVisible = true;
+      answerBtn.textContent = 'Hide Answer';
+    } else {
+      // Toggle visibility
+      answerVisible = !answerVisible;
+      if (answerVisible) {
+        answerImg.classList.remove('hidden');
+        answerBtn.textContent = 'Hide Answer';
+      } else {
+        answerImg.classList.add('hidden');
+        answerBtn.textContent = 'Show Answer';
+      }
+    }
   }
 }
 
@@ -425,6 +459,7 @@ function renderQuestion(canvas, q, answerBtn) {
   // Answer button state
   if (answerBtn) {
     answerBtn.disabled = !q.answerImage;
+    answerBtn.textContent = 'Show Answer';
   }
 }
 
