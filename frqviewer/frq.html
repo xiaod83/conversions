@@ -280,8 +280,9 @@ function bootstrapUI(questions) {
   const normal = questions.map(q => ({
     ...q,
     year: Number(q.year),
-    qNum: extractQNum(q.questionImage) || 0
-  })).sort((a,b) => a.year - b.year || a.qNum - b.qNum);
+    qNum: extractQNum(q.questionImage) || 0,
+    isFormB: /B/i.test(q.questionImage)
+  })).sort((a,b) => a.year - b.year || a.isFormB - b.isFormB || a.qNum - b.qNum);
 
   const byYear = groupBy(normal, q => q.year);
 
@@ -298,8 +299,8 @@ function bootstrapUI(questions) {
   let currentIndex = -1; // index in normal[]
 
   // Build sidebar
-  renderMenu(byYear, menu, (year, qNum) => {
-    const idx = normal.findIndex(q => q.year === year && q.qNum === qNum);
+  renderMenu(byYear, menu, (year, qNum, isFormB) => {
+    const idx = normal.findIndex(q => q.year === year && q.qNum === qNum && q.isFormB === isFormB);
     if (idx >= 0) selectIndex(idx);
   });
 
@@ -330,7 +331,8 @@ function bootstrapUI(questions) {
     currentIndex = idx;
     const q = normal[idx];
     // Update header
-    title.textContent = `Year ${q.year} — Question ${q.qNum || '?'}`;
+    const formLabel = q.isFormB ? ' (Form B)' : '';
+    title.textContent = `Year ${q.year}${formLabel} — Question ${q.qNum || '?'}`;
     subtitle.textContent = q.topic ? q.topic : 'AP Calculus AB';
 
     // Update viewer
@@ -342,7 +344,7 @@ function bootstrapUI(questions) {
 
     // Highlight current in menu
     menu.querySelectorAll('.frq-q-btn[aria-current="true"]').forEach(el => el.setAttribute('aria-current','false'));
-    const btn = menu.querySelector(`.frq-q-btn[data-year="${q.year}"][data-qnum="${q.qNum}"]`);
+    const btn = menu.querySelector(`.frq-q-btn[data-year="${q.year}"][data-qnum="${q.qNum}"][data-formb="${q.isFormB}"]`);
     if (btn) btn.setAttribute('aria-current','true');
   }
 
@@ -383,15 +385,16 @@ function renderMenu(byYear, menuEl, onPick) {
 
     const list = document.createElement('div');
     list.className = 'frq-q-list';
-    const items = byYear.get(y).slice().sort((a,b)=>a.qNum-b.qNum);
+    const items = byYear.get(y).slice().sort((a,b)=>a.isFormB - b.isFormB || a.qNum-b.qNum);
     for (const q of items) {
       const btn = document.createElement('button');
       btn.className = 'frq-q-btn';
       btn.type = 'button';
-      btn.textContent = `Q${q.qNum || '?'}`;
+      btn.textContent = q.isFormB ? `B${q.qNum || '?'}` : `Q${q.qNum || '?'}`;
       btn.dataset.year = String(y);
       btn.dataset.qnum = String(q.qNum || '');
-      btn.addEventListener('click', () => onPick(y, q.qNum));
+      btn.dataset.formb = String(q.isFormB);
+      btn.addEventListener('click', () => onPick(y, q.qNum, q.isFormB));
       list.appendChild(btn);
     }
     section.appendChild(list);
