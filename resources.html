@@ -3,23 +3,49 @@ layout: default
 title: Resources
 ---
 
-<h1>Resources & Downloads</h1>
-<p>Guides, cheat sheets, and downloadable PDFs.</p>
+<h1>Resources & Tools</h1>
+<p class="lead">Free tools, guides, and materials to help you learn better.</p>
 
-<section class="resources-list">
-  <ul>
-    <li>
-      <strong>SAT Speed Guide</strong> — <a href="/assets/pdfs/sat_speed.pdf" target="_blank" rel="noopener">Download PDF</a>
-    </li>
-    <li><a href="/frq.html">FRQ Viewer</a></li>
-    {% comment %} Add other PDFs placed in assets/pdfs here {% endcomment %}
-  </ul>
+<section class="resources-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px;">
+    
+    <!-- FRQ Viewer Card -->
+    <div class="resource-card" style="background: #f7fafc; padding: 28px; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <h2 style="margin-top: 0; font-size: 1.5rem;">📊 FRQ Viewer</h2>
+        <p style="margin-bottom: 20px; line-height: 1.6; color: #2d3748;">Browse 180+ AP Calculus AB Free Response Questions from 2003-2025. Includes full solution keys and organized by year.</p>
+        <a href="/frq.html" style="display: inline-block; padding: 10px 20px; background: #4299e1; color: white; font-weight: 600; border-radius: 6px; text-decoration: none;">Open Viewer →</a>
+    </div>
 
-  <h2>Recommended readings</h2>
-  <ul>
-    <li><a href="https://www.khanacademy.org/test-prep/sat">Khan Academy — SAT practice</a></li>
-    <li><a href="https://openstax.org/">OpenStax — free textbooks</a></li>
-  </ul>
+    <!-- SAT Speed Guide Card -->
+    <div class="resource-card" style="background: #f7fafc; padding: 28px; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <h2 style="margin-top: 0; font-size: 1.5rem;">⚡ SAT Speed Guide</h2>
+        <p style="margin-bottom: 20px; line-height: 1.6; color: #2d3748;">Master time management strategies to finish the SAT with confidence. Written by a 1600 scorer.</p>
+        <a href="/assets/pdfs/sat_speed.pdf" target="_blank" rel="noopener" style="display: inline-block; padding: 10px 20px; background: #4299e1; color: white; font-weight: 600; border-radius: 6px; text-decoration: none;">Download PDF →</a>
+    </div>
+
+    <!-- Series Browser Card -->
+    <div class="resource-card" style="background: #f7fafc; padding: 28px; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <h2 style="margin-top: 0; font-size: 1.5rem;">📚 Learning Series</h2>
+        <p style="margin-bottom: 20px; line-height: 1.6; color: #2d3748;">Browse our collection of connected explainers covering SAT, AP, coding, and more.</p>
+        <a href="/series.html" style="display: inline-block; padding: 10px 20px; background: #48bb78; color: white; font-weight: 600; border-radius: 6px; text-decoration: none;">Browse Series →</a>
+    </div>
+
 </section>
 
-<p>If you'd like a guide listed here, open an issue on <a href="https://github.com/xiaod83/conversions/issues" target="_blank" rel="noopener">GitHub</a> or send us a note via the contact page.</p>
+<section style="margin-top: 48px; padding: 24px; background: #fff5f5; border-radius: 8px; border-left: 4px solid #f56565;">
+    <h2>External Resources</h2>
+    <p>Recommended learning platforms we trust:</p>
+    <ul style="list-style: none; padding-left: 0;">
+        <li style="margin-bottom: 12px;">
+            <a href="https://www.khanacademy.org/test-prep/sat" target="_blank" rel="noopener" style="color: #c53030; font-weight: 600;">Khan Academy — SAT Practice</a>
+            <p style="margin: 4px 0 0 0; color: #718096;">Free, official SAT practice with personalized learning.</p>
+        </li>
+        <li style="margin-bottom: 12px;">
+            <a href="https://openstax.org/" target="_blank" rel="noopener" style="color: #c53030; font-weight: 600;">OpenStax — Free Textbooks</a>
+            <p style="margin: 4px 0 0 0; color: #718096;">High-quality, peer-reviewed college textbooks at no cost.</p>
+        </li>
+    </ul>
+</section>
+
+<div style="margin-top: 40px; padding: 20px; background: #edf2f7; border-radius: 8px; text-align: center;">
+    <p style="margin: 0; color: #4a5568;">Have a resource to suggest? <a href="https://github.com/xiaod83/conversions/issues" target="_blank" rel="noopener" style="color: #3182ce; font-weight: 600;">Open an issue on GitHub</a> or reach out via our contact page.</p>
+</div>
