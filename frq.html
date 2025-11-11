@@ -413,47 +413,130 @@ layout: none
     /* Mobile */
     @media (max-width: 900px) {
       .frq-hero {
-        padding: 40px 20px 60px;
+        padding: 40px 16px 60px;
       }
 
       .frq-hero h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
+        line-height: 1.2;
+      }
+
+      .frq-hero .subtitle {
+        font-size: 1rem;
       }
 
       .frq-stats {
-        gap: 24px;
+        gap: 20px;
       }
 
       .frq-stat-number {
         font-size: 2rem;
       }
 
+      .frq-stat-label {
+        font-size: 0.8rem;
+      }
+
       .frq-app { 
         grid-template-columns: 1fr;
         margin-top: -20px;
+        padding: 0 12px 24px;
       }
       
       .frq-sidebar { 
         max-height: none;
         margin-bottom: 16px;
+        padding: 16px;
+      }
+
+      .frq-sidebar-header h2 {
+        font-size: 1rem;
+      }
+
+      .frq-filter {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+      }
+
+      .frq-year summary {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+      }
+
+      .frq-q-list {
+        padding: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+        gap: 6px;
+      }
+
+      .frq-q-btn {
+        padding: 8px;
+        font-size: 0.85rem;
       }
 
       .frq-view-header {
-        padding: 20px;
+        padding: 16px;
+        gap: 12px;
+      }
+
+      .frq-title {
+        font-size: 1.2rem;
+      }
+
+      .frq-subtitle {
+        font-size: 0.85rem;
       }
 
       .frq-canvas {
-        padding: 20px;
+        padding: 16px;
         min-height: 400px;
       }
 
       .frq-controls {
         width: 100%;
+        gap: 8px;
       }
 
       .frq-btn {
         flex: 1;
         justify-content: center;
+        padding: 10px 12px;
+        font-size: 0.85rem;
+      }
+
+      .frq-img-wrap {
+        gap: 20px;
+      }
+
+      .frq-img-wrap img {
+        border-radius: 8px;
+      }
+    }
+
+    /* Extra small mobile */
+    @media (max-width: 480px) {
+      .frq-hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .frq-stats {
+        gap: 16px;
+      }
+
+      .frq-stat-number {
+        font-size: 1.75rem;
+      }
+
+      .frq-q-list {
+        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+      }
+
+      .frq-controls {
+        flex-direction: column;
+      }
+
+      .frq-btn {
+        width: 100%;
       }
     }
   </style>
@@ -469,11 +552,11 @@ layout: none
     
     <div class="frq-stats">
       <div class="frq-stat">
-        <span class="frq-stat-number">174</span>
+        <span class="frq-stat-number">180</span>
         <span class="frq-stat-label">Questions</span>
       </div>
       <div class="frq-stat">
-        <span class="frq-stat-number">22</span>
+        <span class="frq-stat-number">23</span>
         <span class="frq-stat-label">Years</span>
       </div>
       <div class="frq-stat">
