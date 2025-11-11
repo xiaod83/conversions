@@ -17,63 +17,151 @@ layout: none
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: #0a0c10;
-      color: #e6e6e6;
-      padding: 20px;
-      line-height: 1.5;
+      background: #f5f7fa;
+      color: #2d3748;
+      padding: 0;
+      line-height: 1.6;
+      min-height: 100vh;
     }
 
     /* FRQ Viewer Styles */
     :root {
-      --sidebar-width: 280px;
-      --gap: 12px;
-      --bg: #0f1115;
-      --panel: #151923;
-      --text: #e6e6e6;
-      --muted: #9aa0a6;
-      --accent: #4f8cff;
+      --sidebar-width: 300px;
+      --gap: 16px;
+      --bg: #ffffff;
+      --panel: #f8f9fa;
+      --text: #2d3748;
+      --muted: #718096;
+      --accent: #667eea;
+      --accent-hover: #764ba2;
+      --success: #48bb78;
+      --warning: #ed8936;
+    }
+
+    /* Hero Section */
+    .frq-hero {
+      background: #2d3748;
+      padding: 60px 20px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .frq-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0;
+    }
+
+    .frq-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .frq-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: white;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+      letter-spacing: -0.02em;
+    }
+
+    .frq-hero .subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 32px;
+      font-weight: 500;
+    }
+
+    .frq-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .frq-stat {
+      text-align: center;
+    }
+
+    .frq-stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: white;
+      display: block;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .frq-stat-label {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .frq-app {
       display: grid;
       grid-template-columns: var(--sidebar-width) 1fr;
       gap: var(--gap);
-      min-height: 85vh;
+      min-height: calc(100vh - 240px);
       max-width: 1600px;
-      margin: 0 auto;
+      margin: -40px auto 0;
+      padding: 0 20px 40px;
+      position: relative;
+      z-index: 2;
     }
 
     .frq-sidebar {
-      background: var(--panel);
-      border-radius: 10px;
-      padding: 10px;
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
       color: var(--text);
-      max-height: calc(100vh - 60px);
+      max-height: calc(100vh - 180px);
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
     }
 
     .frq-sidebar-header {
       display: grid;
-      gap: 8px;
-      padding: 4px 2px 8px 2px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      gap: 12px;
+      padding: 0 0 16px 0;
+      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 16px;
     }
 
     .frq-sidebar-header h2 {
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
     }
 
     .frq-filter {
       width: 100%;
-      padding: 6px 10px;
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 6px;
-      background: #0e1218;
+      padding: 10px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      background: white;
       color: var(--text);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .frq-filter:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
 
     .frq-menu {
@@ -82,18 +170,42 @@ layout: none
     }
 
     .frq-year {
-      margin: 6px 0;
-      background: rgba(255,255,255,0.04);
-      border-radius: 8px;
+      margin: 8px 0;
+      background: #f7fafc;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .frq-year:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
     }
 
     .frq-year summary {
       cursor: pointer;
-      padding: 8px 10px;
-      font-weight: 600;
+      padding: 12px 14px;
+      font-weight: 700;
       list-style: none;
       user-select: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 10px;
     }
+
+    .frq-year summary::after {
+      content: '▼';
+      font-size: 0.7rem;
+      color: var(--muted);
+      transition: transform 0.2s ease;
+    }
+
+    .frq-year[open] summary::after {
+      transform: rotate(180deg);
+    }
+
     .frq-year summary::-webkit-details-marker { display: none; }
     .frq-year summary::marker { content: ''; }
 
@@ -101,106 +213,140 @@ layout: none
     .frq-year:not([open]) .frq-q-list { display: none; }
 
     .frq-q-list {
-      padding: 6px;
-      grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
-      gap: 6px;
+      padding: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+      gap: 8px;
     }
 
     .frq-q-btn {
-      padding: 6px 10px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(79,140,255,0.15);
+      padding: 10px;
+      border: 2px solid #e2e8f0;
+      background: white;
       color: var(--text);
-      font-size: 0.85rem;
-      border-radius: 5px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
     }
-    .frq-q-btn:hover { background: rgba(79,140,255,0.3); transform: translateY(-1px); }
+    .frq-q-btn:hover { 
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
     .frq-q-btn[aria-current="true"] {
       background: var(--accent);
       color: white;
       border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
     }
 
     /* Main viewer */
     .frq-view {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
     }
 
     .frq-view-header {
-      background: var(--panel);
-      padding: 12px 16px;
-      border-radius: 10px;
+      background: white;
+      padding: 24px 28px;
+      border-radius: 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      border: 2px solid #e2e8f0;
     }
 
     .frq-title {
-      font-size: 1.3rem;
-      font-weight: 700;
+      font-size: 1.5rem;
+      font-weight: 800;
       color: var(--text);
     }
 
     .frq-subtitle {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--muted);
-      margin-top: 2px;
+      margin-top: 4px;
+      font-weight: 500;
     }
 
     .frq-controls {
       display: flex;
-      gap: 8px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .frq-btn {
-      padding: 8px 14px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(79,140,255,0.2);
-      color: var(--text);
-      font-size: 0.9rem;
-      font-weight: 500;
-      border-radius: 6px;
+      padding: 12px 20px;
+      border: 2px solid var(--accent);
+      background: white;
+      color: var(--accent);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 10px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .frq-btn:hover:not(:disabled) {
-      background: rgba(79,140,255,0.35);
-      transform: translateY(-1px);
+      background: var(--accent);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     }
     .frq-btn:disabled {
       opacity: 0.4;
       cursor: not-allowed;
+      border-color: #cbd5e0;
+      color: #cbd5e0;
+    }
+
+    #answer-btn {
+      background: var(--success);
+      color: white;
+      border-color: var(--success);
+    }
+
+    #answer-btn:hover:not(:disabled) {
+      background: #38a169;
+      box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
     }
 
     .frq-canvas {
-      background: var(--panel);
-      border-radius: 10px;
-      padding: 20px;
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 500px;
+      min-height: 600px;
       overflow: auto;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      border: 2px solid #e2e8f0;
     }
 
     .frq-placeholder {
       color: var(--muted);
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       text-align: center;
+      font-weight: 500;
     }
 
     .frq-img-wrap {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 32px;
       align-items: center;
       max-width: 100%;
+      width: 100%;
     }
 
     .frq-img-wrap img {
@@ -210,14 +356,21 @@ layout: none
       max-height: 80vh;
       object-fit: contain;
       background: white;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-      border-radius: 4px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      transition: transform 0.2s ease;
+    }
+
+    .frq-img-wrap img:hover {
+      transform: scale(1.01);
     }
 
     .frq-answer-img { 
-      margin-top: 10px;
+      margin-top: 20px;
       max-width: 1400px !important;
       max-height: 90vh !important;
+      border: 3px solid var(--success);
     }
 
     .frq-answer-img.hidden {
@@ -231,15 +384,105 @@ layout: none
       outline-offset: 2px;
     }
 
+    /* Back to home link */
+    .frq-back-link {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: white;
+      color: var(--accent);
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .frq-back-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      background: var(--accent);
+      color: white;
+    }
+
     /* Mobile */
     @media (max-width: 900px) {
-      .frq-app { grid-template-columns: 1fr; }
-      .frq-sidebar { max-height: none; }
+      .frq-hero {
+        padding: 40px 20px 60px;
+      }
+
+      .frq-hero h1 {
+        font-size: 2rem;
+      }
+
+      .frq-stats {
+        gap: 24px;
+      }
+
+      .frq-stat-number {
+        font-size: 2rem;
+      }
+
+      .frq-app { 
+        grid-template-columns: 1fr;
+        margin-top: -20px;
+      }
+      
+      .frq-sidebar { 
+        max-height: none;
+        margin-bottom: 16px;
+      }
+
+      .frq-view-header {
+        padding: 20px;
+      }
+
+      .frq-canvas {
+        padding: 20px;
+        min-height: 400px;
+      }
+
+      .frq-controls {
+        width: 100%;
+      }
+
+      .frq-btn {
+        flex: 1;
+        justify-content: center;
+      }
     }
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-LGGRY4GEMV"></script>
 </head>
 <body>
+
+<!-- Hero Section -->
+<section class="frq-hero">
+  <div class="frq-hero-content">
+    <h1>AP Calculus AB FRQ Viewer</h1>
+    <p class="subtitle">Master every Free Response Question from 2003-2024 with instant access to official solutions</p>
+    
+    <div class="frq-stats">
+      <div class="frq-stat">
+        <span class="frq-stat-number">174</span>
+        <span class="frq-stat-label">Questions</span>
+      </div>
+      <div class="frq-stat">
+        <span class="frq-stat-number">22</span>
+        <span class="frq-stat-label">Years</span>
+      </div>
+      <div class="frq-stat">
+        <span class="frq-stat-number">100%</span>
+        <span class="frq-stat-label">Free</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div id="frq-app" class="frq-app">
   <aside class="frq-sidebar">
@@ -267,7 +510,7 @@ layout: none
 
     <section class="frq-canvas" id="frq-canvas" aria-live="polite">
       <!-- Question/answer images go here -->
-      <div id="frq-placeholder" class="frq-placeholder">Choose a year and question to begin.</div>
+      <div id="frq-placeholder" class="frq-placeholder">Choose a year and question to begin practicing.</div>
     </section>
   </main>
 </div>
@@ -287,7 +530,8 @@ const dataUrl = '/frqviewer/frqs.json';
     const res = await fetch(dataUrl);
     if (!res.ok) throw new Error(`Failed to load frqs.json: ${res.status} ${res.statusText}`);
     const questions = await res.json();
-
+    
+    console.log(`Loaded ${questions.length} questions`);
     bootstrapUI(questions);
   } catch (err) {
     console.error(err);
@@ -297,11 +541,15 @@ const dataUrl = '/frqviewer/frqs.json';
 })();
 
 function bootstrapUI(questions) {
-  // Normalize and index questions
-  const normal = questions.map(q => ({
-    ...q,
-    qNum: extractQNum(q.questionImage) || 0
-  }));
+  // Normalize and index questions - extract question number from URL
+  const normal = questions.map(q => {
+    const qNum = extractQNum(q.questionImage);
+    console.log(`Question ${q.id}: year=${q.year}, qNum=${qNum}, hasAnswer=${!!q.answerImage}`);
+    return {
+      ...q,
+      qNum: qNum || 0
+    };
+  });
 
   const byYear = groupBy(normal, q => q.year);
 
@@ -355,7 +603,7 @@ function bootstrapUI(questions) {
     // Update header
     const isFormB = q.year.includes('B');
     const formLabel = isFormB ? ' (Form B)' : '';
-    title.textContent = `Year ${q.year}${formLabel} — Question ${q.qNum || '?'}`;
+    title.textContent = `${q.year}${formLabel} — Question ${q.qNum || '?'}`;
     subtitle.textContent = q.topic ? q.topic : 'AP Calculus AB';
 
     // Update viewer
@@ -365,6 +613,10 @@ function bootstrapUI(questions) {
     prevBtn.disabled = idx <= 0;
     nextBtn.disabled = idx >= normal.length - 1;
 
+    // Update button text with arrows
+    prevBtn.innerHTML = '← Previous';
+    nextBtn.innerHTML = 'Next →';
+
     // Highlight current in menu
     menu.querySelectorAll('.frq-q-btn[aria-current="true"]').forEach(el => el.setAttribute('aria-current','false'));
     const btn = menu.querySelector(`.frq-q-btn[data-year="${q.year}"][data-qnum="${q.qNum}"]`);
@@ -373,28 +625,40 @@ function bootstrapUI(questions) {
 
   function toggleAnswer() {
     const q = normal[currentIndex];
-    if (!q || !q.answerImage) {
+    if (!q) {
+      console.error('No question selected');
+      return;
+    }
+    
+    if (!q.answerImage || q.answerImage.trim() === '') {
       console.warn('No answer image available for:', q);
       return;
     }
     
-    const answerImg = canvas.querySelector('img.frq-answer-img');
+    const wrap = canvas.querySelector('.frq-img-wrap');
+    if (!wrap) {
+      console.error('Cannot find .frq-img-wrap container');
+      return;
+    }
+    
+    const answerImg = wrap.querySelector('img.frq-answer-img');
     if (!answerImg) {
       // Create answer image if it doesn't exist
       const img = document.createElement('img');
       img.className = 'frq-answer-img';
-      img.alt = `Answer ${q.id || ''}`.trim();
+      img.alt = `Answer for ${q.year} Question ${q.qNum}`;
       img.src = q.answerImage;
       img.onerror = () => {
         console.error('Failed to load answer image:', q.answerImage);
         img.remove();
-        toast(canvas, 'Answer image could not be loaded.');
+        toast(canvas, `Could not load answer image. Please check if the file exists at: ${q.answerImage}`);
         answerBtn.disabled = true;
+        answerBtn.textContent = 'Answer Unavailable';
       };
       img.onload = () => {
         console.log('Answer image loaded successfully:', q.answerImage);
       };
-      canvas.querySelector('.frq-img-wrap')?.appendChild(img);
+      wrap.appendChild(img);
       answerVisible = true;
       answerBtn.textContent = 'Hide Answer';
     } else {
@@ -456,7 +720,7 @@ function renderQuestion(canvas, q, answerBtn) {
   wrap.className = 'frq-img-wrap';
 
   const img = document.createElement('img');
-  img.alt = `FRQ ${q.id || ''}`.trim();
+  img.alt = `FRQ ${q.year} Question ${q.qNum}`;
   img.src = q.questionImage;
   img.onerror = () => {
     wrap.innerHTML = '';
@@ -467,13 +731,18 @@ function renderQuestion(canvas, q, answerBtn) {
 
   // Answer button state - check if answerImage exists and is not empty
   if (answerBtn) {
-    const hasAnswer = q.answerImage && q.answerImage.trim().length > 0;
+    const hasAnswer = q.answerImage && typeof q.answerImage === 'string' && q.answerImage.trim().length > 0;
     answerBtn.disabled = !hasAnswer;
     answerBtn.textContent = 'Show Answer';
+    
+    console.log(`Question ${q.id} (${q.year} Q${q.qNum}): answerImage=${q.answerImage}, hasAnswer=${hasAnswer}`);
+    
     if (!hasAnswer) {
-      console.warn(`No answer image for question ${q.id}, year ${q.year}, qNum ${q.qNum}`);
+      console.warn(`⚠️ No answer image for question ${q.id}, year ${q.year}, qNum ${q.qNum}`);
+      answerBtn.title = 'Answer not available for this question';
     } else {
-      console.log(`Answer available for question ${q.id}, year ${q.year}, qNum ${q.qNum}: ${q.answerImage}`);
+      console.log(`✅ Answer available: ${q.answerImage}`);
+      answerBtn.title = 'Click to show answer';
     }
   }
 }
