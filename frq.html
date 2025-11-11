@@ -373,7 +373,10 @@ function bootstrapUI(questions) {
 
   function toggleAnswer() {
     const q = normal[currentIndex];
-    if (!q || !q.answerImage) return;
+    if (!q || !q.answerImage) {
+      console.warn('No answer image available for:', q);
+      return;
+    }
     
     const answerImg = canvas.querySelector('img.frq-answer-img');
     if (!answerImg) {
@@ -383,8 +386,13 @@ function bootstrapUI(questions) {
       img.alt = `Answer ${q.id || ''}`.trim();
       img.src = q.answerImage;
       img.onerror = () => {
+        console.error('Failed to load answer image:', q.answerImage);
         img.remove();
         toast(canvas, 'Answer image could not be loaded.');
+        answerBtn.disabled = true;
+      };
+      img.onload = () => {
+        console.log('Answer image loaded successfully:', q.answerImage);
       };
       canvas.querySelector('.frq-img-wrap')?.appendChild(img);
       answerVisible = true;
@@ -457,10 +465,16 @@ function renderQuestion(canvas, q, answerBtn) {
   wrap.appendChild(img);
   canvas.appendChild(wrap);
 
-  // Answer button state
+  // Answer button state - check if answerImage exists and is not empty
   if (answerBtn) {
-    answerBtn.disabled = !q.answerImage;
+    const hasAnswer = q.answerImage && q.answerImage.trim().length > 0;
+    answerBtn.disabled = !hasAnswer;
     answerBtn.textContent = 'Show Answer';
+    if (!hasAnswer) {
+      console.warn(`No answer image for question ${q.id}, year ${q.year}, qNum ${q.qNum}`);
+    } else {
+      console.log(`Answer available for question ${q.id}, year ${q.year}, qNum ${q.qNum}: ${q.answerImage}`);
+    }
   }
 }
 

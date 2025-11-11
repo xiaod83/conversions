@@ -234,15 +234,14 @@ h2 {
     letter-spacing: -0.5px;
     position: relative;
     padding-bottom: 12px;
-    text-align: center;
+    text-align: left;
 }
 
 h2::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
     width: 80px;
     height: 4px;
     background: linear-gradient(90deg, var(--primary-orange), var(--accent-coral));
@@ -250,7 +249,24 @@ h2::after {
     transition: transform 0.25s ease, width 0.25s ease, opacity 0.25s ease;
 }
 
-h2:hover::after{ width: 110px; transform: translateX(-50%) scaleX(1.02); opacity: 0.95; }
+h2:hover::after{ width: 110px; opacity: 0.95; }
+
+/* Center h2 only on specific pages/sections */
+.intro-section h2,
+.main-content > h2:first-of-type {
+    text-align: center;
+}
+
+.intro-section h2::after,
+.main-content > h2:first-of-type::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.intro-section h2:hover::after,
+.main-content > h2:first-of-type:hover::after {
+    transform: translateX(-50%) scaleX(1.02);
+}
 
 .article-page .main-content > h2:first-of-type {
     text-align: left;
