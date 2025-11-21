@@ -1,53 +1,49 @@
 ---
 layout: default
-title: Resources
+title: Projects & Tools
 ---
 
 <div class="intro-section">
-    <h1>Resources & Tools</h1>
-    <p class="lead">Free tools, guides, and materials to help you learn better.</p>
+    <h1 style="font-family: var(--font-heading); border-bottom: 2px solid black; padding-bottom: 10px;">Projects & Tools</h1>
+    <p class="lead">Interactive tools, guides, and resources built by students.</p>
 </div>
 
-<section class="resources-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px;">
+<div class="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px; margin-top: 40px;">
     
     <!-- FRQ Viewer Card -->
-    <div class="card" style="border-left: 4px solid var(--frq-accent);">
-        <h2 style="margin-top: 0; font-size: 1.5rem; color: var(--frq-accent);">📊 FRQ Viewer</h2>
-        <p>Browse 180+ AP Calculus AB Free Response Questions from 2003-2025. Includes full solution keys and organized by year.</p>
-        <a href="/frq" class="btn btn-primary" style="background: var(--frq-accent);">Open Viewer →</a>
+    <div class="card" style="border: 1px solid black; padding: 24px;">
+        <h3 style="margin-top: 0; font-family: var(--font-heading);">📊 FRQ Viewer</h3>
+        <p>Browse 180+ AP Calculus AB Free Response Questions (2003-2025). Includes full solution keys and organized by year.</p>
+        <a href="/frq" class="btn btn-primary" style="display: block; text-align: center; background: black; color: white; padding: 10px; text-decoration: none; font-weight: bold;">Launch Viewer</a>
     </div>
 
     <!-- SAT Speed Guide Card -->
-    <div class="card">
-        <h2 style="margin-top: 0; font-size: 1.5rem;">⚡ SAT Speed Guide</h2>
-        <p>Master time management strategies to finish the SAT with confidence. Written by a 1600 scorer.</p>
-        <a href="/assets/pdfs/sat_speed.pdf" target="_blank" rel="noopener" class="btn btn-primary">Download PDF →</a>
+    <div class="card" style="border: 1px solid black; padding: 24px;">
+        <h3 style="margin-top: 0; font-family: var(--font-heading);">⚡ SAT Speed Guide</h3>
+        <p>The definitive guide to timing strategy on the SAT. Written by a 1600 scorer to help you manage the clock.</p>
+        <a href="/assets/pdfs/sat_speed.pdf" target="_blank" class="btn btn-outline" style="display: block; text-align: center; border: 1px solid black; color: black; padding: 10px; text-decoration: none; font-weight: bold;">Download PDF</a>
     </div>
 
     <!-- Series Browser Card -->
-    <div class="card">
-        <h2 style="margin-top: 0; font-size: 1.5rem;">📚 Learning Series</h2>
-        <p>Browse our collection of connected explainers covering SAT, AP, coding, and more.</p>
-        <a href="/series" class="btn btn-primary" style="background: #48bb78;">Browse Series →</a>
+    <div class="card" style="border: 1px solid black; padding: 24px;">
+        <h3 style="margin-top: 0; font-family: var(--font-heading);">📚 Learning Series</h3>
+        <p>Browse our collection of structured guides covering SAT, AP, coding, and more.</p>
+        <a href="/series" class="btn btn-outline" style="display: block; text-align: center; border: 1px solid black; color: black; padding: 10px; text-decoration: none; font-weight: bold;">Browse Series</a>
     </div>
 
-</section>
+</div>
 
-<section style="margin-top: 48px; padding: 24px; background: #fff5f5; border-radius: 8px; border-left: 4px solid #f56565;">
-    <h2 style="text-align: left; padding-bottom: 0; margin-top: 0;">External Resources</h2>
+<div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #eee;">
+    <h3 style="font-family: var(--font-heading);">External Resources</h3>
     <p>Recommended learning platforms we trust:</p>
-    <ul style="list-style: none; padding-left: 0;">
-        <li style="margin-bottom: 12px;">
-            <a href="https://www.khanacademy.org/test-prep/sat" target="_blank" rel="noopener" style="color: #c53030; font-weight: 600;">Khan Academy — SAT Practice</a>
-            <p style="margin: 4px 0 0 0; color: #718096;">Free, official SAT practice with personalized learning.</p>
+    <ul style="list-style: none; padding: 0;">
+        <li style="margin-bottom: 15px;">
+            <a href="https://www.khanacademy.org/test-prep/sat" target="_blank" style="color: var(--link-color); font-weight: bold; font-size: 1.1rem;">Khan Academy — SAT Practice</a>
+            <p style="margin: 4px 0 0 0; color: #666;">Free, official SAT practice with personalized learning.</p>
         </li>
-        <li style="margin-bottom: 12px;">
-            <a href="https://openstax.org/" target="_blank" rel="noopener" style="color: #c53030; font-weight: 600;">OpenStax — Free Textbooks</a>
-            <p style="margin: 4px 0 0 0; color: #718096;">High-quality, peer-reviewed college textbooks at no cost.</p>
+        <li style="margin-bottom: 15px;">
+            <a href="https://openstax.org/" target="_blank" style="color: var(--link-color); font-weight: bold; font-size: 1.1rem;">OpenStax — Free Textbooks</a>
+            <p style="margin: 4px 0 0 0; color: #666;">High-quality, peer-reviewed college textbooks at no cost.</p>
         </li>
     </ul>
-</section>
-
-<div style="margin-top: 40px; padding: 20px; background: var(--surface-light); border-radius: 8px; text-align: center;">
-    <p style="margin: 0; color: var(--text-secondary);">Have a resource to suggest? <a href="https://github.com/xiaod83/conversions/issues" target="_blank" rel="noopener" style="color: var(--primary-dark); font-weight: 600;">Open an issue on GitHub</a> or reach out via our contact page.</p>
 </div>
