@@ -5,7 +5,7 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('mousedown', () => document.documentElement.classList.remove('user-is-tabbing'));
 
 // FRQ Viewer Logic
-const dataUrl = '/frqviewer/frqs.json';
+const dataUrl = 'frqviewer/frqs.json';
 
 (async function init() {
   // Only run if we are on the FRQ page
@@ -178,6 +178,8 @@ function bootstrapUI(questions) {
     }
   }
 }
+
+// Removed renderMenu function as it is no longer used
 
 function renderQuestion(canvas, q, answerBtn) {
   canvas.innerHTML = '';

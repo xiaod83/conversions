@@ -1,13 +1,17 @@
-<nav>
-    <div class="nav-container">
-        <a href="/" class="nav-logo">
-            <img src="/assets/logos/Conversions%20Logo%20with%20Letters%20NoBG.png" alt="conversions.studio logo">
-        </a>
-        <ul class="nav-menu">
-            <li><a href="/" {% if page.url == "/" %}class="active"{% endif %}>Home</a></li>
-            <li><a href="/series" {% if page.url contains "/series" %}class="active"{% endif %}>Series</a></li>
-            <li><a href="/resources" {% if page.url contains "/resources" %}class="active"{% endif %}>Resources</a></li>
-            <li><a href="/about" {% if page.url contains "/about" %}class="active"{% endif %}>About</a></li>
-        </ul>
+<header class="site-header">
+    <div class="container">
+        <div class="header-content" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 2px solid black;">
+            <a href="/" class="site-title" style="font-family: 'Times New Roman', serif; font-size: 1.8rem; font-weight: bold; color: black; text-decoration: none;">
+                {{ site.title }}
+            </a>
+            
+            <nav class="site-nav">
+                <ul style="display: flex; gap: 24px; list-style: none; margin: 0; padding: 0;">
+                    <li><a href="/series" style="color: black; text-decoration: none; font-weight: bold; font-family: sans-serif; text-transform: uppercase; font-size: 0.9rem;">Series</a></li>
+                    <li><a href="/resources.html" style="color: black; text-decoration: none; font-weight: bold; font-family: sans-serif; text-transform: uppercase; font-size: 0.9rem;">Projects</a></li>
+                    <li><a href="/about" style="color: black; text-decoration: none; font-weight: bold; font-family: sans-serif; text-transform: uppercase; font-size: 0.9rem;">About</a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
-</nav>
+</header>

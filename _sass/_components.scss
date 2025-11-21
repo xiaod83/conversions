@@ -1,124 +1,138 @@
 /* Buttons */
 .btn {
     display: inline-block;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 0; /* Square corners */
+    font-weight: 400;
+    font-size: 14px;
     text-decoration: none;
-    transition: all 0.2s ease;
-    border: none;
+    transition: none;
+    border: 1px solid var(--border-color);
     cursor: pointer;
-    font-family: inherit;
+    font-family: var(--font-body);
+    background: white;
+    color: var(--text-color);
     
     &.btn-primary {
-        background: var(--primary-orange);
+        background: var(--text-color);
         color: white;
-        box-shadow: 0 4px 12px rgba(201, 111, 44, 0.3);
+        border-color: var(--text-color);
+        box-shadow: none;
         
         &:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(201, 111, 44, 0.4);
-            color: white;
+            background: white;
+            color: var(--text-color);
+            transform: none;
+            box-shadow: none;
         }
     }
     
     &.btn-outline {
         background: transparent;
-        border: 1px solid var(--border);
-        color: var(--text-secondary);
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
         
         &:hover {
-            border-color: var(--primary-orange);
-            color: var(--primary-orange);
+            background: #f0f0f0;
+            color: var(--text-color);
+            border-color: var(--border-color);
         }
     }
 }
 
-/* Cards */
+/* Cards - Minimalist */
 .card {
-    background: var(--warm-white);
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    padding: 32px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(42, 42, 42, 0.04);
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 24px;
+    transition: none;
+    box-shadow: none;
+    margin-bottom: 20px;
     
     &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(42, 42, 42, 0.08);
-        border-color: var(--primary-orange);
+        transform: none;
+        box-shadow: none;
+        border-color: var(--border-color);
+        background: #fafafa;
     }
 }
 
 .series-card {
     @extend .card;
-    background-image: var(--card-gradient);
-    border-left: 6px solid rgba(201,111,44,0.12);
-    margin: 32px 0 48px 0;
+    background-color: white;
+    border-left: 1px solid var(--border-color);
+    margin: 0;
     
     &:hover {
-        border-left-color: var(--primary-orange);
+        border-left-color: var(--border-color);
     }
     
     h2 {
         margin-top: 0;
-        margin-bottom: 16px;
-        font-size: 24px;
-        &::after { display: none; }
+        margin-bottom: 12px;
+        font-size: 20px;
+        font-family: var(--font-heading);
     }
 }
 
-/* Spotlights */
-.spotlights {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 28px;
-    margin-top: 48px;
-}
-
+/* Spotlights / Lists */
 .mini-post {
     margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
     
     h3 {
         margin: 0 0 4px 0;
         font-size: 1.1rem;
+        font-family: var(--font-heading);
+        
+        a {
+            color: var(--link-color);
+            text-decoration: underline;
+        }
     }
     
     .meta {
         font-size: 0.85rem;
-        color: var(--text-muted);
+        color: #666;
         margin-bottom: 8px;
     }
 }
 
 /* Intro Section */
 .intro-section {
-    margin-bottom: 64px;
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: 48px;
-    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 40px;
+    text-align: left; /* Classic left align */
+    
+    h1 {
+        font-family: var(--font-heading);
+        font-size: 3rem;
+        margin-bottom: 16px;
+        letter-spacing: -1px;
+    }
     
     .lead {
-        font-size: 24px;
+        font-size: 1.2rem;
         line-height: 1.5;
-        color: var(--text-secondary);
-        margin-bottom: 32px;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
+        color: var(--text-color);
+        margin-bottom: 20px;
+        max-width: 100%;
     }
 }
 
 .mission-statement {
-    max-width: 700px;
-    margin: 32px auto 48px;
-    text-align: center;
-    font-size: 19px;
-    color: var(--text-secondary);
+    max-width: 100%;
+    margin: 20px 0;
+    text-align: left;
+    font-size: 1rem;
+    color: var(--text-color);
+    font-style: italic;
     
     strong {
-        color: var(--primary-orange);
+        color: var(--text-color);
+        font-weight: bold;
     }
 }

@@ -2,68 +2,72 @@
 layout: default
 title: Home
 ---
+
 <div class="intro-section">
-    <h1 class="gradient-text">improve your everyday knowledge</h1>   
-    <p class="lead">The library where concepts finally click — created by students who learned it themselves.</p>
-
-    <div class="mission-statement">
-        <p>We create <strong>resources useful to students</strong> — including learning series and various projects that help you master tough concepts and succeed academically.</p>
-    </div>
+    <h1>conversions.studio</h1>   
+    <p class="lead">A library of student-created resources, guides, and tools.</p>
 </div>
 
-<!-- FRQ Reader Highlight -->
-<div class="card" style="margin-top: 40px; border-left: 6px solid var(--frq-accent); background: linear-gradient(to right, rgba(102, 126, 234, 0.05), transparent);">
-    <h2 style="margin-top: 0; color: var(--frq-accent);">🎯 NEW: AP Calculus AB FRQ Viewer</h2>
-    <p style="font-size: 1.1rem; margin-bottom: 24px;">Practice with 180+ past AP Calculus AB Free Response Questions (2003-2025) with built-in answer keys. Browse by year, track your progress, and master every question type.</p>
-    <a href="/frq" class="btn btn-primary" style="background: var(--frq-accent);">Launch FRQ Viewer →</a>
-</div>
-
-<h2 style="margin-top: 64px;">Start learning</h2>
-<p>Browse our growing library of series. Each one is a learning journey through a subject area.</p>
-
-<div class="cta-section" style="text-align: center; margin: 48px 0;">
-    <a href="/series" class="btn btn-primary">Browse All Series →</a>
-</div>
-
-<!-- Spotlight sections: Recent posts, Series spotlight, Contributor spotlight -->
-<section class="spotlights">
-    <!-- Recent posts -->
-    <div class="recent-posts">
-        <h2>Recent posts</h2>
-        <div class="recent-list">
-            {% assign recent = site.posts | sort: 'date' | reverse | slice: 0,3 %}
-            {% for post in recent %}
-                <article class="mini-post">
-                    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-                    <div class="meta"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>{% if post.category %} • <a href="/series/{{ post.category | slugify }}/">{{ post.category }}</a>{% endif %}</div>
-                    {% if post.excerpt %}<p class="mini-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>{% endif %}
-                </article>
-            {% endfor %}
+<div class="home-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;">
+    
+    <!-- Left Column: Series -->
+    <div class="column-series">
+        <h2 style="font-family: var(--font-heading); border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 20px;">Learning Series</h2>
+        <p style="margin-bottom: 20px;">Structured guides to master complex topics.</p>
+        
+        <div class="series-list">
+            <div class="card series-card">
+                <h3><a href="/series/ap/" style="color: var(--link-color); text-decoration: none;">AP® Guides</a></h3>
+                <p>Calculus, Physics, and more.</p>
+            </div>
+            <div class="card series-card">
+                <h3><a href="/series/sat/" style="color: var(--link-color); text-decoration: none;">SAT Prep</a></h3>
+                <p>Strategies for a 1500+ score.</p>
+            </div>
+            <div class="card series-card">
+                <h3><a href="/series/coding/" style="color: var(--link-color); text-decoration: none;">Coding & CS</a></h3>
+                <p>Python, Web Dev, Algorithms.</p>
+            </div>
+            
+            <a href="/series" class="btn btn-outline" style="margin-top: 20px; display: block; text-align: center;">View All Series →</a>
         </div>
     </div>
 
-    <!-- Series of the Month (uses latest post's category as a spotlight) -->
-    <div class="series-spotlight">
-        {% assign latest = site.posts | sort: 'date' | reverse | first %}
-        {% if latest and latest.category %}
-            <h2>Series Spotlight: {{ latest.category }}</h2>
-            <p>Featured recent post: <strong><a href="{{ latest.url }}">{{ latest.title }}</a></strong></p>
-            <p><a class="btn btn-outline" href="/series/{{ latest.category | slugify }}/">Explore the {{ latest.category }} series →</a></p>
-        {% endif %}
+    <!-- Right Column: Projects -->
+    <div class="column-projects">
+        <h2 style="font-family: var(--font-heading); border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 20px;">Projects & Tools</h2>
+        <p style="margin-bottom: 20px;">Interactive tools and resources built by us.</p>
+
+        <div class="project-list">
+            <div class="card">
+                <h3 style="margin-top: 0;">📊 FRQ Viewer</h3>
+                <p>180+ AP Calculus AB Questions (2003-2025) with solutions.</p>
+                <a href="/frq" class="btn btn-primary" style="width: 100%; text-align: center; box-sizing: border-box;">Launch Viewer</a>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-top: 0;">⚡ SAT Speed Guide</h3>
+                <p>The definitive guide to timing strategy on the SAT.</p>
+                <a href="/assets/pdfs/sat_speed.pdf" class="btn btn-outline" style="width: 100%; text-align: center; box-sizing: border-box;">Download PDF</a>
+            </div>
+            
+            <a href="/resources.html" class="btn btn-outline" style="margin-top: 20px; display: block; text-align: center;">View All Projects →</a>
+        </div>
     </div>
 
-    <!-- Contributor spotlight (author of latest post) -->
-    <div class="contributor-spotlight">
-        {% if latest and latest.author %}
-            <h2>Student Spotlight: {{ latest.author }}</h2>
-            <p>Recent work from {{ latest.author }}. Read more from this contributor below.</p>
-            <ul>
-                {% assign by_author = site.posts | where: "author", latest.author | sort: 'date' | reverse %}
-                {% for p in by_author limit:5 %}
-                    <li><a href="{{ p.url }}">{{ p.title }}</a> <small>({{ p.date | date: "%b %d, %Y" }})</small></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
-</section>
+</div>
+
+<div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #eee;">
+    <h3 style="font-family: var(--font-heading);">Recent Updates</h3>
+    <ul style="list-style: none; padding: 0;">
+        {% assign recent = site.posts | sort: 'date' | reverse | slice: 0,3 %}
+        {% for post in recent %}
+        <li style="margin-bottom: 10px;">
+            <span style="color: #666; font-family: monospace; margin-right: 10px;">{{ post.date | date: "%Y-%m-%d" }}</span>
+            <a href="{{ post.url }}" style="color: var(--link-color);">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
 

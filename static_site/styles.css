@@ -1,0 +1,55 @@
+/* Compiled CSS for Static Site */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --link-color: #0000EE;
+    --link-visited: #551A8B;
+    --border-color: #000000;
+    --font-heading: "Times New Roman", Times, serif;
+    --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+a { color: var(--link-color); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+/* Header */
+.site-header { border-bottom: 2px solid black; padding: 20px 0; margin-bottom: 40px; }
+.header-content { display: flex; justify-content: space-between; align-items: center; }
+.site-title { font-family: var(--font-heading); font-size: 1.8rem; font-weight: bold; color: black; }
+.site-nav ul { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; }
+.site-nav a { color: black; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; }
+
+/* Components */
+.btn {
+    display: inline-block; padding: 8px 16px; border: 1px solid black;
+    background: white; color: black; cursor: pointer; font-size: 14px;
+}
+.btn-primary { background: black; color: white; }
+.btn-primary:hover { background: white; color: black; }
+
+.card {
+    border: 1px solid black; padding: 24px; margin-bottom: 20px;
+}
+
+/* Grid */
+.home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+@media (max-width: 700px) { .home-grid { grid-template-columns: 1fr; } }
+
+/* Typography */
+h1, h2, h3 { font-family: var(--font-heading); margin-top: 0; }
+h1 { font-size: 2.5rem; }
+
+/* FRQ Specific */
+.frq-app { display: grid; grid-template-columns: 280px 1fr; gap: 32px; }
+.frq-sidebar { border-right: 1px solid #eee; padding-right: 20px; }

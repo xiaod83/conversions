@@ -39,8 +39,8 @@ function bootstrapUI(questions) {
   const byYear = groupBy(normal, q => q.year);
 
   // Elements
-  const yearSelect = document.getElementById('frq-year-select');
-  const qList = document.getElementById('frq-question-list');
+  const menu = document.getElementById('frq-menu');
+  const filter = document.getElementById('frq-filter');
   const title = document.getElementById('frq-title');
   const subtitle = document.getElementById('frq-subtitle');
   const canvas = document.getElementById('frq-canvas');
@@ -51,44 +51,21 @@ function bootstrapUI(questions) {
   let currentIndex = -1; // index in normal[]
   let answerVisible = false;
 
-  // Initialize Toolbar
-  const years = Array.from(byYear.keys()).sort((a, b) => {
-    const numA = parseInt(a);
-    const numB = parseInt(b);
-    if (numA !== numB) return numB - numA; // Descending order
-    return b.localeCompare(a);
-  });
-
-  // Populate Year Dropdown
-  years.forEach(y => {
-    const opt = document.createElement('option');
-    opt.value = y;
-    opt.textContent = y;
-    yearSelect.appendChild(opt);
-  });
-
-  // Handle Year Change
-  yearSelect.addEventListener('change', () => {
-    renderQuestionButtons(yearSelect.value);
-    // Select first question of that year
-    const firstQ = byYear.get(yearSelect.value)[0];
-    const idx = normal.indexOf(firstQ);
+  // Build sidebar
+  renderMenu(byYear, menu, (year, qNum) => {
+    const idx = normal.findIndex(q => q.year === year && q.qNum === qNum);
     if (idx >= 0) selectIndex(idx);
   });
 
-  function renderQuestionButtons(year) {
-    qList.innerHTML = '';
-    const items = byYear.get(year).slice().sort((a,b) => a.qNum - b.qNum);
-    
-    items.forEach(q => {
-        const btn = document.createElement('button');
-        btn.className = 'frq-q-btn';
-        btn.textContent = q.qNum;
-        btn.dataset.idx = normal.indexOf(q);
-        btn.addEventListener('click', () => selectIndex(normal.indexOf(q)));
-        qList.appendChild(btn);
-    });
-  }
+  // Filter by year
+  filter?.addEventListener('input', () => {
+    const query = filter.value.trim();
+    const yearFilter = query ? new RegExp(query.replace(/[^0-9B]/gi,''), 'i') : null;
+    for (const section of menu.querySelectorAll('.frq-year')) {
+      const y = section.dataset.year;
+      section.style.display = yearFilter ? (String(y).match(yearFilter) ? '' : 'none') : '';
+    }
+  });
 
   // Navigation
   prevBtn?.addEventListener('click', () => selectIndex(Math.max(0, currentIndex - 1)));
@@ -100,23 +77,14 @@ function bootstrapUI(questions) {
 
   answerBtn?.addEventListener('click', () => toggleAnswer());
 
-  // Initial Render
-  if (years.length > 0) {
-      renderQuestionButtons(years[0]);
-      if (normal.length) selectIndex(0);
-  }
+  // Select the first item by default
+  if (normal.length) selectIndex(0);
 
   function selectIndex(idx) {
     currentIndex = idx;
     const q = normal[idx];
     answerVisible = false;
     
-    // Sync Dropdown if needed (e.g. if using Prev/Next across years)
-    if (yearSelect.value !== q.year) {
-        yearSelect.value = q.year;
-        renderQuestionButtons(q.year);
-    }
-
     // Update header
     const isFormB = q.year.includes('B');
     const formLabel = isFormB ? ' (Form B)' : '';
@@ -130,15 +98,14 @@ function bootstrapUI(questions) {
     prevBtn.disabled = idx <= 0;
     nextBtn.disabled = idx >= normal.length - 1;
 
-    // Highlight current button
-    const buttons = qList.querySelectorAll('.frq-q-btn');
-    buttons.forEach(b => {
-        if (parseInt(b.dataset.idx) === idx) {
-            b.setAttribute('aria-current', 'true');
-        } else {
-            b.setAttribute('aria-current', 'false');
-        }
-    });
+    // Update button text with arrows
+    prevBtn.innerHTML = '← Previous';
+    nextBtn.innerHTML = 'Next →';
+
+    // Highlight current in menu
+    menu.querySelectorAll('.frq-q-btn[aria-current="true"]').forEach(el => el.setAttribute('aria-current','false'));
+    const btn = menu.querySelector(`.frq-q-btn[data-year="${q.year}"][data-qnum="${q.qNum}"]`);
+    if (btn) btn.setAttribute('aria-current','true');
   }
 
   function toggleAnswer() {
@@ -176,6 +143,44 @@ function bootstrapUI(questions) {
         answerBtn.textContent = 'Show Answer';
       }
     }
+  }
+}
+
+function renderMenu(byYear, menuEl, onPick) {
+  menuEl.innerHTML = '';
+  const years = Array.from(byYear.keys()).sort((a, b) => {
+    const numA = parseInt(a);
+    const numB = parseInt(b);
+    if (numA !== numB) return numA - numB;
+    return a.localeCompare(b);
+  });
+  
+  for (const y of years) {
+    const section = document.createElement('details');
+    section.className = 'frq-year';
+    section.dataset.year = String(y);
+    // Expand the most recent year by default
+    if (y === years[years.length-1]) section.open = true;
+
+    const sum = document.createElement('summary');
+    sum.textContent = String(y);
+    section.appendChild(sum);
+
+    const list = document.createElement('div');
+    list.className = 'frq-q-list';
+    const items = byYear.get(y).slice().sort((a,b) => a.qNum - b.qNum);
+    for (const q of items) {
+      const btn = document.createElement('button');
+      btn.className = 'frq-q-btn';
+      btn.type = 'button';
+      btn.textContent = `Q${q.qNum || '?'}`;
+      btn.dataset.year = String(y);
+      btn.dataset.qnum = String(q.qNum || '');
+      btn.addEventListener('click', () => onPick(y, q.qNum));
+      list.appendChild(btn);
+    }
+    section.appendChild(list);
+    menuEl.appendChild(section);
   }
 }
 
