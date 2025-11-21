@@ -1,30 +1,37 @@
 ---
 layout: default
 ---
-<article class="post">
-    <header class="post-header">
-        <h1>{{ page.title }}</h1>
-        <div class="post-meta">
+<article class="post card" style="padding: 40px;">
+    <header class="post-header" style="margin-bottom: 32px; text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 24px;">
+        <h1 style="font-size: 2.5rem; margin-bottom: 16px; color: var(--primary-dark);">{{ page.title }}</h1>
+        <div class="post-meta" style="color: var(--text-secondary); font-size: 0.95rem;">
             <time datetime="{{ page.date | date_to_xmlschema }}">
                 {{ page.date | date: "%B %d, %Y" }}
             </time>
             {% if page.author %}
-            <span class="post-author">by {{ page.author }}</span>
+            <span class="post-author"> • by {{ page.author }}</span>
+            {% endif %}
+            {% if page.category %}
+            <span class="post-category" style="margin-left: 12px; background: var(--surface-light); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">{{ page.category }}</span>
             {% endif %}
         </div>
     </header>
 
-    <div class="post-content">
+    <div class="post-content" style="font-size: 1.1rem; line-height: 1.8;">
         {{ content }}
     </div>
 
     {% if page.tags %}
-    <footer class="post-footer">
+    <footer class="post-footer" style="margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border-color);">
         <div class="post-tags">
             {% for tag in page.tags %}
-            <span class="tag">{{ tag }}</span>
+            <span class="tag badge" style="background: var(--surface-light); color: var(--text-secondary); margin-right: 8px;">#{{ tag }}</span>
             {% endfor %}
         </div>
     </footer>
     {% endif %}
+    
+    <div style="margin-top: 40px; text-align: center;">
+        <a href="/series" class="btn btn-outline">← Back to Series</a>
+    </div>
 </article>

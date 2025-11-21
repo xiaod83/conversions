@@ -1,36 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-    <link rel="icon" type="image/png" sizes="64x64" href="/assets/logos/Conversions%20Logo%20Upscaled%20NoBG.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/logos/Conversions%20Logo%20Upscaled%20NoBG.png">
-    <link rel="stylesheet" href="/styles.css">
-        <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LGGRY4GEMV"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-LGGRY4GEMV');
-    </script>
+    {% include head.html %}
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <a href="/index.html" class="nav-logo">
-                <img src="/assets/logos/Conversions%20Logo%20with%20Letters%20NoBG.png" alt="conversions.studio logo">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="/index">Home</a></li>
-                <li><a href="/series">Series</a></li>
-                <li><a href="/resources">Resources</a></li>
-                <li><a href="/about">About</a></li>
-            </ul>
-        </div>
-    </nav>
+    {% include header.html %}
 
     <div class="container">
         <main class="main-content">
@@ -38,36 +12,6 @@
         </main>
     </div>
 
-    <!-- Footer -->
-    <footer style="margin-top: 64px; padding: 32px 0; border-top: 2px solid #e2e8f0; background: #f7fafc; text-align: center;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-            <p style="margin: 0 0 12px 0; color: #4a5568; font-size: 0.95rem;">
-                <strong>conversions.studio</strong> — student-created learning resources
-            </p>
-            <p style="margin: 0; color: #718096; font-size: 0.9rem;">
-                <a href="/series" style="color: #4299e1; text-decoration: none; margin: 0 12px;">Series</a> •
-                <a href="/resources" style="color: #4299e1; text-decoration: none; margin: 0 12px;">Resources</a> •
-                <a href="/about" style="color: #4299e1; text-decoration: none; margin: 0 12px;">About</a> •
-                <a href="https://github.com/xiaod83/conversions" target="_blank" rel="noopener" style="color: #4299e1; text-decoration: none; margin: 0 12px;">GitHub</a>
-            </p>
-        </div>
-    </footer>
-
-    <script>
-        let lastScrollTop = 0;
-        const nav = document.querySelector('nav');
-        
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                nav.classList.add('hidden');
-            } else {
-                nav.classList.remove('hidden');
-            }
-            
-            lastScrollTop = scrollTop;
-        });
-    </script>
+    {% include footer.html %}
 </body>
 </html>

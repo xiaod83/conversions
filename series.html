@@ -3,17 +3,17 @@ layout: default
 title: Series
 ---
 
-<div style="text-align: center; margin-bottom: 40px;">
+<div class="intro-section">
     <h1>Explore the Library</h1>
     <p class="lead">Each series is a learning journey through a subject. Pick what you want to master.</p>
 </div>
 
 <!-- Category Filter (generated from site categories) -->
 <div class="category-filter" style="margin: 40px 0; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-  <button class="filter-btn active" data-category="all">All Series</button>
+  <button class="btn btn-outline active" data-category="all">All Series</button>
   {% for category in site.categories %}
     {% assign cat_name = category[0] %}
-    <button class="filter-btn" data-category="{{ cat_name }}">{{ cat_name }}</button>
+    <button class="btn btn-outline" data-category="{{ cat_name }}">{{ cat_name }}</button>
   {% endfor %}
 </div>
 
@@ -21,66 +21,31 @@ title: Series
 <div class="posts-list">
 {% assign sorted_posts = site.posts | sort: 'date' | reverse %}
 {% for post in sorted_posts %}
-  <article class="post-preview" data-category="{{ post.category }}">
-    <div class="post-meta">
-      <time datetime="{{ post.date | date_to_xmlschema }}">
+  <article class="card post-preview" data-category="{{ post.category }}" style="margin-bottom: 24px;">
+    <div class="post-meta" style="margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+      <time datetime="{{ post.date | date_to_xmlschema }}" style="color: var(--text-secondary); font-size: 0.9rem;">
         {{ post.date | date: "%B %d, %Y" }}
       </time>
       {% if post.category %}
-      <span class="post-category">{{ post.category }}</span>
+      <span class="badge" style="background: var(--surface-light); color: var(--primary-dark); padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">{{ post.category }}</span>
       {% endif %}
     </div>
-    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+    <h2 style="margin-top: 0;"><a href="{{ post.url }}" style="text-decoration: none; color: inherit;">{{ post.title }}</a></h2>
     {% if post.excerpt %}
-    <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 50 }}</p>
+    <p class="post-excerpt" style="color: var(--text-secondary);">{{ post.excerpt | strip_html | truncatewords: 50 }}</p>
     {% endif %}
-    <a href="{{ post.url }}" class="read-more">Read more →</a>
+    <a href="{{ post.url }}" class="btn btn-primary" style="margin-top: 16px;">Read more →</a>
   </article>
 {% endfor %}
 </div>
 
 {% if site.posts.size == 0 %}
-<p>No posts yet. Check back soon!</p>
+<p style="text-align: center; color: var(--text-secondary);">No posts yet. Check back soon!</p>
 {% endif %}
-
-<style>
-.filter-btn {
-  background: white;
-  border: 1px solid var(--border-light);
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.filter-btn:hover {
-  border-color: var(--primary-orange);
-  color: var(--primary-orange);
-}
-
-.filter-btn.active {
-  background: var(--primary-orange);
-  color: white;
-  border-color: var(--primary-orange);
-}
-
-.post-category {
-  background: var(--light-orange);
-  color: var(--primary-orange);
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-</style>
 
 <script>
 // Category filter functionality
-const filterBtns = document.querySelectorAll('.filter-btn');
+const filterBtns = document.querySelectorAll('.category-filter button');
 const posts = document.querySelectorAll('.post-preview');
 
 filterBtns.forEach(btn => {
@@ -88,8 +53,14 @@ filterBtns.forEach(btn => {
     const category = btn.dataset.category;
     
     // Update active button
-    filterBtns.forEach(b => b.classList.remove('active'));
+    filterBtns.forEach(b => {
+        b.classList.remove('active');
+        b.classList.remove('btn-primary');
+        b.classList.add('btn-outline');
+    });
     btn.classList.add('active');
+    btn.classList.remove('btn-outline');
+    btn.classList.add('btn-primary');
     
     // Filter posts
     posts.forEach(post => {

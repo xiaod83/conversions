@@ -1,0 +1,124 @@
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    
+    &.btn-primary {
+        background: var(--primary-orange);
+        color: white;
+        box-shadow: 0 4px 12px rgba(201, 111, 44, 0.3);
+        
+        &:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(201, 111, 44, 0.4);
+            color: white;
+        }
+    }
+    
+    &.btn-outline {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        
+        &:hover {
+            border-color: var(--primary-orange);
+            color: var(--primary-orange);
+        }
+    }
+}
+
+/* Cards */
+.card {
+    background: var(--warm-white);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 32px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(42, 42, 42, 0.04);
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(42, 42, 42, 0.08);
+        border-color: var(--primary-orange);
+    }
+}
+
+.series-card {
+    @extend .card;
+    background-image: var(--card-gradient);
+    border-left: 6px solid rgba(201,111,44,0.12);
+    margin: 32px 0 48px 0;
+    
+    &:hover {
+        border-left-color: var(--primary-orange);
+    }
+    
+    h2 {
+        margin-top: 0;
+        margin-bottom: 16px;
+        font-size: 24px;
+        &::after { display: none; }
+    }
+}
+
+/* Spotlights */
+.spotlights {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 48px;
+}
+
+.mini-post {
+    margin-bottom: 20px;
+    
+    h3 {
+        margin: 0 0 4px 0;
+        font-size: 1.1rem;
+    }
+    
+    .meta {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+    }
+}
+
+/* Intro Section */
+.intro-section {
+    margin-bottom: 64px;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 48px;
+    text-align: center;
+    
+    .lead {
+        font-size: 24px;
+        line-height: 1.5;
+        color: var(--text-secondary);
+        margin-bottom: 32px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.mission-statement {
+    max-width: 700px;
+    margin: 32px auto 48px;
+    text-align: center;
+    font-size: 19px;
+    color: var(--text-secondary);
+    
+    strong {
+        color: var(--primary-orange);
+    }
+}

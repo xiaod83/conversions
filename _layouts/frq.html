@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include head.html %}
+</head>
+<body class="frq-layout">
+    {% include header.html %}
+
+    <!-- No container div here, allowing full width -->
+    <main class="main-content">
+        {{ content }}
+    </main>
+
+    {% include footer.html %}
+    
+    <!-- FRQ Scripts -->
+    <script src="/assets/js/frq.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@ layout: default
 title: Home
 ---
 <div class="intro-section">
-    <h1>improve your everyday knowledge</h1>   
+    <h1 class="gradient-text">improve your everyday knowledge</h1>   
     <p class="lead">The library where concepts finally click — created by students who learned it themselves.</p>
 
     <div class="mission-statement">
@@ -12,21 +12,21 @@ title: Home
 </div>
 
 <!-- FRQ Reader Highlight -->
-<div class="featured-tool" style="margin-top: 40px; padding: 24px; background: #f7fafc; border-radius: 8px; border: 2px solid #e2e8f0;">
-    <h2 style="margin-top: 0;">🎯 NEW: AP Calculus AB FRQ Viewer</h2>
-    <p style="font-size: 1.1rem; margin-bottom: 16px;">Practice with 180+ past AP Calculus AB Free Response Questions (2003-2025) with built-in answer keys. Browse by year, track your progress, and master every question type.</p>
-    <a href="/frq" style="display: inline-block; padding: 12px 24px; background: #4299e1; color: white; font-weight: 600; border-radius: 8px; text-decoration: none; transition: transform 0.2s;">Launch FRQ Viewer →</a>
+<div class="card" style="margin-top: 40px; border-left: 6px solid var(--frq-accent); background: linear-gradient(to right, rgba(102, 126, 234, 0.05), transparent);">
+    <h2 style="margin-top: 0; color: var(--frq-accent);">🎯 NEW: AP Calculus AB FRQ Viewer</h2>
+    <p style="font-size: 1.1rem; margin-bottom: 24px;">Practice with 180+ past AP Calculus AB Free Response Questions (2003-2025) with built-in answer keys. Browse by year, track your progress, and master every question type.</p>
+    <a href="/frq" class="btn btn-primary" style="background: var(--frq-accent);">Launch FRQ Viewer →</a>
 </div>
 
-<h2 style="margin-top: 48px;">Start learning</h2>
+<h2 style="margin-top: 64px;">Start learning</h2>
 <p>Browse our growing library of series. Each one is a learning journey through a subject area.</p>
 
-<div class="cta-section">
-    <a href="series.html" class="browse-cta">Browse All Series →</a>
+<div class="cta-section" style="text-align: center; margin: 48px 0;">
+    <a href="/series" class="btn btn-primary">Browse All Series →</a>
 </div>
 
 <!-- Spotlight sections: Recent posts, Series spotlight, Contributor spotlight -->
-<section class="spotlights" style="margin-top: 48px; display: grid; grid-template-columns: 1fr; gap: 28px;">
+<section class="spotlights">
     <!-- Recent posts -->
     <div class="recent-posts">
         <h2>Recent posts</h2>
@@ -48,7 +48,7 @@ title: Home
         {% if latest and latest.category %}
             <h2>Series Spotlight: {{ latest.category }}</h2>
             <p>Featured recent post: <strong><a href="{{ latest.url }}">{{ latest.title }}</a></strong></p>
-            <p><a class="browse-cta" href="/series/{{ latest.category | slugify }}/">Explore the {{ latest.category }} series →</a></p>
+            <p><a class="btn btn-outline" href="/series/{{ latest.category | slugify }}/">Explore the {{ latest.category }} series →</a></p>
         {% endif %}
     </div>
 

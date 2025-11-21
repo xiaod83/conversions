@@ -3,7 +3,7 @@ layout: default
 title: Resources
 ---
 
-<div style="text-align: center; margin-bottom: 40px;">
+<div class="intro-section">
     <h1>Resources & Tools</h1>
     <p class="lead">Free tools, guides, and materials to help you learn better.</p>
 </div>
@@ -11,30 +11,30 @@ title: Resources
 <section class="resources-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px;">
     
     <!-- FRQ Viewer Card -->
-    <div class="resource-card" style="background: #f7fafc; padding: 28px; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h2 style="margin-top: 0; font-size: 1.5rem;">📊 FRQ Viewer</h2>
-        <p style="margin-bottom: 20px; line-height: 1.6; color: #2d3748;">Browse 180+ AP Calculus AB Free Response Questions from 2003-2025. Includes full solution keys and organized by year.</p>
-        <a href="/frq" style="display: inline-block; padding: 10px 20px; background: #4299e1; color: white; font-weight: 600; border-radius: 6px; text-decoration: none;">Open Viewer →</a>
+    <div class="card" style="border-left: 4px solid var(--frq-accent);">
+        <h2 style="margin-top: 0; font-size: 1.5rem; color: var(--frq-accent);">📊 FRQ Viewer</h2>
+        <p>Browse 180+ AP Calculus AB Free Response Questions from 2003-2025. Includes full solution keys and organized by year.</p>
+        <a href="/frq" class="btn btn-primary" style="background: var(--frq-accent);">Open Viewer →</a>
     </div>
 
     <!-- SAT Speed Guide Card -->
-    <div class="resource-card" style="background: #f7fafc; padding: 28px; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+    <div class="card">
         <h2 style="margin-top: 0; font-size: 1.5rem;">⚡ SAT Speed Guide</h2>
-        <p style="margin-bottom: 20px; line-height: 1.6; color: #2d3748;">Master time management strategies to finish the SAT with confidence. Written by a 1600 scorer.</p>
-        <a href="/assets/pdfs/sat_speed.pdf" target="_blank" rel="noopener" style="display: inline-block; padding: 10px 20px; background: #4299e1; color: white; font-weight: 600; border-radius: 6px; text-decoration: none;">Download PDF →</a>
+        <p>Master time management strategies to finish the SAT with confidence. Written by a 1600 scorer.</p>
+        <a href="/assets/pdfs/sat_speed.pdf" target="_blank" rel="noopener" class="btn btn-primary">Download PDF →</a>
     </div>
 
     <!-- Series Browser Card -->
-    <div class="resource-card" style="background: #f7fafc; padding: 28px; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+    <div class="card">
         <h2 style="margin-top: 0; font-size: 1.5rem;">📚 Learning Series</h2>
-        <p style="margin-bottom: 20px; line-height: 1.6; color: #2d3748;">Browse our collection of connected explainers covering SAT, AP, coding, and more.</p>
-        <a href="/series" style="display: inline-block; padding: 10px 20px; background: #48bb78; color: white; font-weight: 600; border-radius: 6px; text-decoration: none;">Browse Series →</a>
+        <p>Browse our collection of connected explainers covering SAT, AP, coding, and more.</p>
+        <a href="/series" class="btn btn-primary" style="background: #48bb78;">Browse Series →</a>
     </div>
 
 </section>
 
 <section style="margin-top: 48px; padding: 24px; background: #fff5f5; border-radius: 8px; border-left: 4px solid #f56565;">
-    <h2 style="text-align: left; padding-bottom: 0;">External Resources</h2>
+    <h2 style="text-align: left; padding-bottom: 0; margin-top: 0;">External Resources</h2>
     <p>Recommended learning platforms we trust:</p>
     <ul style="list-style: none; padding-left: 0;">
         <li style="margin-bottom: 12px;">
@@ -48,6 +48,6 @@ title: Resources
     </ul>
 </section>
 
-<div style="margin-top: 40px; padding: 20px; background: #edf2f7; border-radius: 8px; text-align: center;">
-    <p style="margin: 0; color: #4a5568;">Have a resource to suggest? <a href="https://github.com/xiaod83/conversions/issues" target="_blank" rel="noopener" style="color: #3182ce; font-weight: 600;">Open an issue on GitHub</a> or reach out via our contact page.</p>
+<div style="margin-top: 40px; padding: 20px; background: var(--surface-light); border-radius: 8px; text-align: center;">
+    <p style="margin: 0; color: var(--text-secondary);">Have a resource to suggest? <a href="https://github.com/xiaod83/conversions/issues" target="_blank" rel="noopener" style="color: var(--primary-dark); font-weight: 600;">Open an issue on GitHub</a> or reach out via our contact page.</p>
 </div>
