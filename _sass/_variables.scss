@@ -7,14 +7,17 @@
     --border-color: #000000;
     --accent-color: #000000;
     
+    /* Brand Colors */
+    --brand-orange: #F25C33; /* Vibrant Orange-Red from screenshot */
+    
     /* Typography */
-    --font-heading: "Times New Roman", Times, serif;
+    --font-heading: "Helvetica Neue", Helvetica, Arial, sans-serif;
     --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
     
     /* Spacing */
     --spacing-unit: 20px;
     
     /* FRQ Specific */
-    --frq-accent: #0000EE;
-    --frq-success: #008000;
+    --frq-accent: var(--brand-orange);
+    --frq-success: var(--brand-orange); /* Updated to match brand color */
 }
