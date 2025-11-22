@@ -117,8 +117,11 @@
 }
 
 .frq-answer-img {
+    display: block;
+    width: 100% !important;
     margin-top: 40px;
     border: 4px solid #008000 !important;
+    box-sizing: border-box;
 }
 
 .hidden { display: none; }
